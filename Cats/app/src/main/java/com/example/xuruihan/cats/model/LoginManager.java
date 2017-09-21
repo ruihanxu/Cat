@@ -1,4 +1,4 @@
-package com.example.xuruihan.cats.util;
+package com.example.xuruihan.cats.model;
 
 import android.content.Context;
 
@@ -6,7 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.android.dukedemo.utils.NetworkSingleton;
+import com.example.xuruihan.cats.util.NetworkSingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;

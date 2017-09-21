@@ -1,4 +1,4 @@
-package com.example.xuruihan.cats.util;
+package com.example.xuruihan.cats.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;

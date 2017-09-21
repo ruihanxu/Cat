@@ -1,4 +1,4 @@
-package com.example.xuruihan.cats.model;
+package com.example.xuruihan.cats;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -16,7 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.xuruihan.cats.R;
+import com.example.xuruihan.cats.model.LoginManager;
+import com.example.xuruihan.cats.model.User;
 
 
 /**
