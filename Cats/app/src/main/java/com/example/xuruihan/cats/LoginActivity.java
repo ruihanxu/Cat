@@ -105,6 +105,14 @@ public class LoginActivity extends AppCompatActivity implements LoginManager.Log
             cancel = true;
         }
 
+        // Check for a valid user
+        if (!email.equals(R.string.hardcoded_user) || !password.equals(R.string.hardcoded_password)) {
+            mEmailView.setError("User name of password is invalid");
+            mPasswordView.setError("User name of password is invalid");
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -113,10 +121,8 @@ public class LoginActivity extends AppCompatActivity implements LoginManager.Log
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             // Check for this hard-coded user
-            if (email.equals("user") && password.equals("pass")) {
-                showProgress(true);
-                LoginManager.getInstance().doLogin(email, password, this, this);
-            }
+            showProgress(true);
+            LoginManager.getInstance().doLogin(email, password, this, this);
         }
     }
 
