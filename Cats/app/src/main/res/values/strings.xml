@@ -17,5 +17,7 @@
     <!-- hard coded user -->
     <string name="hardcoded_user">user</string>
     <string name="hardcoded_password">pass</string>
+    <item name="visible" type="id"/>
+    <item name="masked" type="id"/>
 
 </resources>
