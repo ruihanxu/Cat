@@ -112,19 +112,22 @@ public class LoginActivity extends AppCompatActivity implements LoginManager.Log
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
-            LoginManager.getInstance().doLogin(email, password, this, this);
+            // Check for this hard-coded user
+            if (email.equals("user") && password.equals("pass")) {
+                showProgress(true);
+                LoginManager.getInstance().doLogin(email, password, this, this);
+            }
         }
     }
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return true;
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return true;
     }
 
     /**

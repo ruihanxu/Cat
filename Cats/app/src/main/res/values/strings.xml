@@ -14,4 +14,8 @@
         completions."
     </string>
 
+    <!-- hard coded user -->
+    <string name="hardcoded_user">user</string>
+    <string name="hardcoded_password">pass</string>
+
 </resources>
