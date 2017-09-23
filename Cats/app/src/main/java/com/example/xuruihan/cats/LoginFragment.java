@@ -3,13 +3,18 @@ package com.example.xuruihan.cats;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Intent;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -19,31 +24,48 @@ import android.widget.TextView;
 import com.example.xuruihan.cats.model.LoginManager;
 import com.example.xuruihan.cats.model.User;
 
-
 /**
- * A login screen that offers login via email/password.
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link LoginFragment.OnLoginFragmentInteractionListener} interface
+ * to handle interaction events.
  */
-public class LoginActivity extends AppCompatActivity implements LoginManager.LoginCallBack {
+public class LoginFragment extends Fragment implements LoginManager.LoginCallBack{
 
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
+
     private static final int REQUEST_READ_CONTACTS = 0;
-
-    // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+    private OnLoginFragmentInteractionListener loginListener;
+
+    public LoginFragment() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_signin, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        mEmailView = (AutoCompleteTextView) getActivity().findViewById(R.id.email);
+
+        mPasswordView = (EditText) getActivity().findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -55,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements LoginManager.Log
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = (Button) getActivity().findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,10 +85,9 @@ public class LoginActivity extends AppCompatActivity implements LoginManager.Log
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        mLoginFormView = getActivity().findViewById(R.id.login_form);
+        mProgressView = getActivity().findViewById(R.id.login_progress);
     }
-
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -106,9 +127,10 @@ public class LoginActivity extends AppCompatActivity implements LoginManager.Log
         }
 
         // Check for a valid user
-        if (!email.equals(R.string.hardcoded_user) || !password.equals(R.string.hardcoded_password)) {
+        if (!email.equals(getActivity().getString(R.string.hardcoded_user)) || !password.equals(getActivity().getString(R.string.hardcoded_password))) {
             mEmailView.setError("User name of password is invalid");
             mPasswordView.setError("User name of password is invalid");
+            //Log.d("test login", "" + email + " " +password);
             focusView = mPasswordView;
             cancel = true;
         }
@@ -122,10 +144,9 @@ public class LoginActivity extends AppCompatActivity implements LoginManager.Log
             // perform the user login attempt.
             // Check for this hard-coded user
             showProgress(true);
-            LoginManager.getInstance().doLogin(email, password, this, this);
+            LoginManager.getInstance().doLogin(email, password, this, getActivity());
         }
     }
-
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return true;
@@ -175,10 +196,7 @@ public class LoginActivity extends AppCompatActivity implements LoginManager.Log
     @Override
     public void onLoginSuccess(User user) {
         showProgress(false);
-
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-        finish();
+        loginListener.goToMainPage();
     }
 
     @Override
@@ -186,5 +204,36 @@ public class LoginActivity extends AppCompatActivity implements LoginManager.Log
         mEmailView.setError("Invalid username or password:(");
         showProgress(false);
     }
-}
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnLoginFragmentInteractionListener) {
+            loginListener = (OnLoginFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        loginListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnLoginFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void goToMainPage();
+    }
+}
