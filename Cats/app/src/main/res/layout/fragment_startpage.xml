@@ -37,16 +37,19 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:text="Welcome U Dirty Rat!"
+                android:textColor="#ff0000"
+                android:gravity="center"
                 android:textSize="30dp"
                 android:textStyle="bold" />
+
             <ImageView
                 android:id="@+id/cbPicView"
-                android:layout_width="400px"
-                android:layout_height="400px"
+                android:layout_width="900px"
+                android:layout_height="900px"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/tomjerry"
-                android:layout_weight="3"
-                />
+                android:layout_weight="2.94"
+                android:src="@drawable/tomjerry" />
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -75,6 +78,18 @@
                 android:layout_marginTop="16dp"
                 android:backgroundTint="#EF5350"
                 android:text="Register"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/hText0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="Proudly Produced by League of Coders™"
+                android:textColor="#25383C"
+                android:textSize="30dp"
                 android:textStyle="bold" />
 
         </LinearLayout>

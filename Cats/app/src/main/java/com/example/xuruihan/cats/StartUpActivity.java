@@ -47,7 +47,7 @@ public class StartUpActivity extends AppCompatActivity implements StartUpFragmen
         fragmentTransaction.addToBackStack(null).commit();
     }
 
-    @Override
+
     public void cancelLogin() {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         StartUpFragment startUpFragment = new StartUpFragment();
