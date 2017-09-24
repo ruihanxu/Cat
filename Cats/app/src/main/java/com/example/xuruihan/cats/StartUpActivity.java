@@ -41,11 +41,19 @@ public class StartUpActivity extends AppCompatActivity implements StartUpFragmen
 
     @Override
     public void cancelSignup() {
-        Intent intent = new Intent(this, MapActivity.class);
-        startActivity(intent);
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        StartUpFragment startUpFragment = new StartUpFragment();
+        fragmentTransaction.replace(R.id.fragmentContainer, startUpFragment);
+        fragmentTransaction.addToBackStack(null).commit();
     }
 
-
+    @Override
+    public void cancelLogin() {
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        StartUpFragment startUpFragment = new StartUpFragment();
+        fragmentTransaction.replace(R.id.fragmentContainer, startUpFragment);
+        fragmentTransaction.addToBackStack(null).commit();
+    }
 
     @Override
     public void goToMainPage() {
