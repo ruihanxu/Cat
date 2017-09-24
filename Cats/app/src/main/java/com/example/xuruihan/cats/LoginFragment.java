@@ -66,7 +66,7 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
         mEmailView = (AutoCompleteTextView) getActivity().findViewById(R.id.email);
         cancelButton = (Button) getActivity().findViewById(R.id.cancel_login_button);
         cancelButton.setOnClickListener((View v) -> {
-            loginListener.goToMainPage();
+            loginListener.cancelLogin();
         });
 
         mPasswordView = (EditText) getActivity().findViewById(R.id.password);
@@ -239,6 +239,7 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
     public interface OnLoginFragmentInteractionListener {
         // TODO: Update argument type and name
         void goToMainPage();
+        void cancelLogin();
 
     }
 }
