@@ -38,7 +38,7 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
+    private Button cancelButton;
 
     private OnLoginFragmentInteractionListener loginListener;
 
@@ -64,6 +64,10 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
         super.onActivityCreated(savedInstanceState);
 
         mEmailView = (AutoCompleteTextView) getActivity().findViewById(R.id.email);
+        cancelButton = (Button) getActivity().findViewById(R.id.cancel_login_button);
+        cancelButton.setOnClickListener((View v) -> {
+            loginListener.goToMainPage();
+        });
 
         mPasswordView = (EditText) getActivity().findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -235,5 +239,6 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
     public interface OnLoginFragmentInteractionListener {
         // TODO: Update argument type and name
         void goToMainPage();
+
     }
 }

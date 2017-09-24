@@ -36,7 +36,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintVertical_bias="0.494" />
     <Button
-        android:id="@+id/email_sign_in_button"
+        android:id="@+id/logout_button"
         android:layout_width="368dp"
         android:layout_height="48dp"
         android:text="Logout"

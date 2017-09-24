@@ -40,9 +40,12 @@ public class StartUpActivity extends AppCompatActivity implements StartUpFragmen
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void cancelSignup() {
+        Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
     }
+
+
 
     @Override
     public void goToMainPage() {

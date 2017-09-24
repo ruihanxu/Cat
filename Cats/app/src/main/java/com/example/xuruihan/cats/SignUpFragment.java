@@ -3,10 +3,12 @@ package com.example.xuruihan.cats;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +20,8 @@ public class SignUpFragment extends Fragment {
 
 
     private OnSignupFragmentInteractionListener signupListener;
+
+    private Button cancelButton;
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -36,6 +40,14 @@ public class SignUpFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_signup, container, false);
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        cancelButton = (Button) getActivity().findViewById(R.id.cancel_signup_button);
+        cancelButton.setOnClickListener((View v) -> {
+            signupListener.cancelSignup();
+        });
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -66,6 +78,6 @@ public class SignUpFragment extends Fragment {
      */
     public interface OnSignupFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void cancelSignup();
     }
 }
