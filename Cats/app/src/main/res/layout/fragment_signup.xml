@@ -54,7 +54,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView"
+                android:id="@+id/emailTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Username"
@@ -63,7 +63,7 @@
                 android:singleLine="true" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/passwordeditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
@@ -74,6 +74,7 @@
                 android:maxLines="1"
                 android:singleLine="true" />
 
+
             <Button
                 android:id="@+id/email_sign_up_button"
                 style="?android:textAppearanceSmall"
@@ -83,6 +84,7 @@
                 android:backgroundTint="#EF5350"
                 android:text="Register"
                 android:textStyle="bold" />
+
             <Button
                 android:id="@+id/cancel_signup_button"
                 style="?android:textAppearanceSmall"
