@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
+import com.example.xuruihan.cats.model.UserItem;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -71,7 +73,9 @@ public class SignUpFragment extends Fragment {
                     isAdmin = true;
                 }
 
-                
+                UserItem newUser = new UserItem(userAddress, password);
+
+
 
 
             } else {
