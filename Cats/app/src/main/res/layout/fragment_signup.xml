@@ -79,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:id="radioGroup">
+                android:id="@+id/radioGroup">
 
                 <android.support.v7.widget.AppCompatRadioButton
                     android:id="@+id/catButton"
