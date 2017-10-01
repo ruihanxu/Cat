@@ -12,7 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import com.example.xuruihan.cats.model.SignupManager;
+import com.example.xuruihan.cats.model.User;
 import com.example.xuruihan.cats.model.UserItem;
 
 /**
@@ -61,9 +64,9 @@ public class SignUpFragment extends Fragment {
             signupListener.cancelSignup();
         });
         registerButton.setOnClickListener((View v) -> {
-            String userAddress = userText.getText().toString();
+            String username = userText.getText().toString();
             String password = passwordText.getText().toString();
-            if (userAddress.matches("[\\S]+")) {
+            if (username.matches("[\\S]+")) {
                 //call signup manager
                 boolean isAdmin;
                 int selectedButtonId = radioGroup.getCheckedRadioButtonId();
@@ -73,13 +76,14 @@ public class SignUpFragment extends Fragment {
                     isAdmin = true;
                 }
 
-                UserItem newUser = new UserItem(userAddress, password);
+                //UserItem newUserItem = new UserItem(userAddress, password, isAdmin);
+                //User newUser = new User(newUserItem);
 
-
+                SignupManager.getInstance().doSignup(username, password, isAdmin, getActivity());
 
 
             } else {
-                //warning
+                Toast.makeText(getActivity(), "Please type in a valid username", Toast.LENGTH_SHORT).show();
             }
         });
     }
