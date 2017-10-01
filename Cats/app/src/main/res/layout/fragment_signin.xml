@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:text="Welcome U Dirty Rat!"
+                android:text="Welcome Rat Hunters!"
                 android:textSize="30dp"
                 android:textStyle="bold" />
 
