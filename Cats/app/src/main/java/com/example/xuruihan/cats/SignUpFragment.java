@@ -5,10 +5,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +24,9 @@ public class SignUpFragment extends Fragment {
     private OnSignupFragmentInteractionListener signupListener;
 
     private Button cancelButton;
+    private Button registerButton;
+    private EditText emailText;
+    private EditText passwordText;
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -44,10 +49,23 @@ public class SignUpFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         cancelButton = (Button) getActivity().findViewById(R.id.cancel_signup_button);
+        registerButton = (Button) getActivity().findViewById(R.id.email_sign_up_button);
+        emailText = (EditText) getActivity().findViewById(R.id.emailTextView);
+        passwordText = (EditText) getActivity().findViewById(R.id.passwordeditText);
         cancelButton.setOnClickListener((View v) -> {
             signupListener.cancelSignup();
         });
+        registerButton.setOnClickListener((View v) -> {
+            String emailAddress = emailText.getText().toString();
+            String password = passwordText.getText().toString();
+            if (emailAddress.matches("[\\S]+")) {
+                //call signup manager
+            } else {
+                //warning
+            }
+        });
     }
+
 
     @Override
     public void onAttach(Context context) {

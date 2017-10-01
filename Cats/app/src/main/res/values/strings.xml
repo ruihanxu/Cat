@@ -13,6 +13,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="catUser">User</string>
+    <string name="adminUser">Admin</string>
 
     <!-- hard coded user -->
     <string name="hardcoded_user">user</string>
