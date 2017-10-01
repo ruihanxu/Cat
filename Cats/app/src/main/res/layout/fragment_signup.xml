@@ -12,6 +12,7 @@
 
     <!-- Login progress -->
 
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -73,6 +74,36 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="radioGroup">
+
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/catButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:text="Cat" />
+
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/adminButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Admin" />
+            </RadioGroup>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/email_sign_up_button"
