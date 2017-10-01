@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by xuruihan on 2016/11/19.
+ * Created by League of Users on 2017/10/01.
  */
 public class User {
 

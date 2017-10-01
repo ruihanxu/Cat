@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -131,24 +132,25 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
         }
 
         // Check for a valid user
-        if (!user.equals(getActivity().getString(R.string.hardcoded_user)) || !password.equals(getActivity().getString(R.string.hardcoded_password))) {
-            muserView.setError("User name of password is invalid");
-            mPasswordView.setError("User name of password is invalid");
-            //Log.d("test login", "" + user + " " +password);
-            focusView = mPasswordView;
-            cancel = true;
-        }
+        Context context = getContext();
+        SharedPreferences preferences = context.getSharedPreferences("username", Context.MODE_PRIVATE);
+        String fetchedPassword = preferences.getString(user, "empty");
+        Log.d("fetched password", fetchedPassword);
 
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
+        if (password.equals(fetchedPassword)) {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             // Check for this hard-coded user
             showProgress(true);
             LoginManager.getInstance().doLogin(user, password, this, getActivity());
+        } else {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            muserView.setError("User name of password is invalid");
+            mPasswordView.setError("User name of password is invalid");
+            //Log.d("test login", "" + user + " " +password);
+            focusView = mPasswordView;
+            focusView.requestFocus();
         }
     }
     private boolean isuserValid(String user) {

@@ -1,10 +1,9 @@
 package com.example.xuruihan.cats.model;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
 
 /**
  * Created by xuruihan on 2017/9/30.
@@ -45,5 +44,15 @@ public class SignupManager {
         } else {
             user = new Cat();
         }
+
+        SharedPreferences preferences = context.getSharedPreferences("username", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(username, password);
+
+        editor.commit();
+
+        String myvar = preferences.getString(username, "empty");
+        Log.d("fetched password", myvar);
+
     }
 }
