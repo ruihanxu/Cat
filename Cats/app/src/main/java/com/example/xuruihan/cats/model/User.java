@@ -10,6 +10,14 @@ public class User {
 
     UserItem userItem;
 
+    public User () {
+        this.userItem = null;
+    }
+
+    public User (UserItem userItem) {
+        this.userItem = userItem;
+    }
+
     public UserItem getUserItem() {
         return userItem;
     }
@@ -17,8 +25,11 @@ public class User {
         userItem.setUser(user);
         userItem.setPass(pass);
     }
+
     public static User fromJson(JSONObject jsonObj) throws JSONException {
         //TODO: init necessary fields.
+        //return new User();
+        //read from file
         return new User();
     }
 }
