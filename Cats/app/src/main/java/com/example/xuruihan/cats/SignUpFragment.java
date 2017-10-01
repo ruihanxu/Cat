@@ -69,16 +69,15 @@ public class SignUpFragment extends Fragment {
             if (username.matches("[\\S]+")) {
                 boolean isAdmin;
                 int selectedButtonId = radioGroup.getCheckedRadioButtonId();
-                if (selectedButtonId == R.id.catButton) {
-                    isAdmin = false;
-                } else {
-                    isAdmin = true;
-                }
 
-                //UserItem newUserItem = new UserItem(userAddress, password, isAdmin);
-                //User newUser = new User(newUserItem);
+                isAdmin = !(selectedButtonId == R.id.catButton);
 
                 SignupManager.getInstance().doSignup(username, password, isAdmin, getActivity());
+
+
+                signupListener.signupToMainPage();
+                Toast.makeText(getActivity(), "Thanks for registering", Toast.LENGTH_SHORT).show();
+
 
             } else {
                 Toast.makeText(getActivity(), "Please type in a valid username", Toast.LENGTH_SHORT).show();
@@ -117,5 +116,6 @@ public class SignUpFragment extends Fragment {
     public interface OnSignupFragmentInteractionListener {
         // TODO: Update argument type and name
         void cancelSignup();
+        void signupToMainPage();
     }
 }
