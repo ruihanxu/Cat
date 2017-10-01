@@ -4,17 +4,32 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by xuruihan on 2016/11/19.
+ * Created by League of Users on 2017/10/01.
  */
 public class User {
-    public static final String USERNAME_FIELD = "username";
-    public static final String PASSWORD_FIELD = "password";
 
-    String username;
-    String password;
+    UserItem userItem;
+
+    public User () {
+        this.userItem = null;
+    }
+
+    public User (UserItem userItem) {
+        this.userItem = userItem;
+    }
+
+    public UserItem getUserItem() {
+        return userItem;
+    }
+    public void setUser(String user, String pass) {
+        userItem.setUser(user);
+        userItem.setPass(pass);
+    }
 
     public static User fromJson(JSONObject jsonObj) throws JSONException {
         //TODO: init necessary fields.
+        //return new User();
+        //read from file
         return new User();
     }
 }

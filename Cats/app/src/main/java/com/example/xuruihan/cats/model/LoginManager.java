@@ -17,14 +17,34 @@ import org.json.JSONObject;
 public class LoginManager {
     private static final String LOGIN_URL = "";
 
+    /**
+     * Show an interface to show if login success or fail.
+     */
     public interface LoginCallBack {
+
+        /**
+         * Show if login success
+         *
+         * @param user the user who wants to log in
+         */
         void onLoginSuccess(User user);
+
+        /**
+         * Show if login fail
+         *
+         * @param msg the message when login failed
+         */
         void onLoginFail(String msg);
     }
 
     private static LoginManager ourInstance = new LoginManager();
     private User user;
 
+    /**
+     * Get the instance of login manager.
+     *
+     * @return the instance of login manager
+     */
     public static LoginManager getInstance() {
         return ourInstance;
     }
@@ -32,14 +52,33 @@ public class LoginManager {
     private LoginManager() {
     }
 
+    /**
+     * CCheck if the user has logged in
+     *
+     * @return whether the user exists after logged in
+     */
     public boolean isLogin() {
         return user != null;
     }
 
+    /**
+     * Log in to the app after type in the correct name and password
+     *
+     * @param username the username to log in
+     * @param password the password to log in
+     * @param callBack the status to check if logged in
+     * @param ctx the context to tell the user about the status
+     */
     public void doLogin(String username, String password, final LoginCallBack callBack, Context ctx) {
         //TODO: build url here.
         String url = LOGIN_URL;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+            /**
+             * show the JSON object which do correct response
+             *
+             * @param response the response of the JSONobject
+             */
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -49,6 +88,12 @@ public class LoginManager {
                 }
             }
         }, new Response.ErrorListener() {
+
+            /**
+             * show the JSON object which make error in response
+             *
+             * @param error the error of the JSONobject
+             */
             @Override
             public void onErrorResponse(VolleyError error) {
                 try {

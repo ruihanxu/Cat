@@ -31,7 +31,7 @@
         android:src="@drawable/tom"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/email_sign_in_button"
+        app:layout_constraintBottom_toTopOf="@+id/user_sign_in_button"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         android:layout_marginTop="20dp"
         app:layout_constraintVertical_bias="0.494" />

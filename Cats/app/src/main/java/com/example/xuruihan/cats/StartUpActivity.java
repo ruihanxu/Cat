@@ -56,6 +56,12 @@ public class StartUpActivity extends AppCompatActivity implements StartUpFragmen
     }
 
     @Override
+    public void signupToMainPage() {
+        Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public void goToMainPage() {
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);

@@ -11,6 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import com.example.xuruihan.cats.model.SignupManager;
+import com.example.xuruihan.cats.model.User;
+import com.example.xuruihan.cats.model.UserItem;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,8 +31,9 @@ public class SignUpFragment extends Fragment {
 
     private Button cancelButton;
     private Button registerButton;
-    private EditText emailText;
+    private EditText userText;
     private EditText passwordText;
+    private RadioGroup radioGroup;
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -49,19 +56,31 @@ public class SignUpFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         cancelButton = (Button) getActivity().findViewById(R.id.cancel_signup_button);
-        registerButton = (Button) getActivity().findViewById(R.id.email_sign_up_button);
-        emailText = (EditText) getActivity().findViewById(R.id.emailTextView);
+        registerButton = (Button) getActivity().findViewById(R.id.user_sign_up_button);
+        userText = (EditText) getActivity().findViewById(R.id.userTextView);
         passwordText = (EditText) getActivity().findViewById(R.id.passwordeditText);
+        radioGroup = (RadioGroup) getActivity().findViewById(R.id.radioGroup);
         cancelButton.setOnClickListener((View v) -> {
             signupListener.cancelSignup();
         });
         registerButton.setOnClickListener((View v) -> {
-            String emailAddress = emailText.getText().toString();
+            String username = userText.getText().toString();
             String password = passwordText.getText().toString();
-            if (emailAddress.matches("[\\S]+")) {
-                //call signup manager
+            if (username.matches("[\\S]+")) {
+                boolean isAdmin;
+                int selectedButtonId = radioGroup.getCheckedRadioButtonId();
+
+                isAdmin = !(selectedButtonId == R.id.catButton);
+
+                SignupManager.getInstance().doSignup(username, password, isAdmin, getActivity());
+
+
+                signupListener.signupToMainPage();
+                Toast.makeText(getActivity(), "Thanks for registering", Toast.LENGTH_SHORT).show();
+
+
             } else {
-                //warning
+                Toast.makeText(getActivity(), "Please type in a valid username", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -97,5 +116,6 @@ public class SignUpFragment extends Fragment {
     public interface OnSignupFragmentInteractionListener {
         // TODO: Update argument type and name
         void cancelSignup();
+        void signupToMainPage();
     }
 }
