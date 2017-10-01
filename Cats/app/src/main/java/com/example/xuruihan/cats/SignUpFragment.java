@@ -67,7 +67,6 @@ public class SignUpFragment extends Fragment {
             String username = userText.getText().toString();
             String password = passwordText.getText().toString();
             if (username.matches("[\\S]+")) {
-                //call signup manager
                 boolean isAdmin;
                 int selectedButtonId = radioGroup.getCheckedRadioButtonId();
 
@@ -75,8 +74,10 @@ public class SignUpFragment extends Fragment {
 
                 SignupManager.getInstance().doSignup(username, password, isAdmin, getActivity());
 
+
                 signupListener.signupToMainPage();
                 Toast.makeText(getActivity(), "Thanks for registering", Toast.LENGTH_SHORT).show();
+
 
             } else {
                 Toast.makeText(getActivity(), "Please type in a valid username", Toast.LENGTH_SHORT).show();

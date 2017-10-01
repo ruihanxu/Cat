@@ -5,4 +5,10 @@ package com.example.xuruihan.cats.model;
  */
 
 public class Cat extends User {
+    public void addReport() {
+        //TODO: add report
+    }
+    public void updateReport() {
+        //TODO: updateReport
+    }
 }
