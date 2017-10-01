@@ -34,7 +34,7 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
 
 
     private static final int REQUEST_READ_CONTACTS = 0;
-    private AutoCompleteTextView mEmailView;
+    private AutoCompleteTextView muserView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -63,7 +63,7 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mEmailView = (AutoCompleteTextView) getActivity().findViewById(R.id.email);
+        muserView = (AutoCompleteTextView) getActivity().findViewById(R.id.user);
         cancelButton = (Button) getActivity().findViewById(R.id.cancel_login_button);
         cancelButton.setOnClickListener((View v) -> {
             loginListener.cancelLogin();
@@ -81,8 +81,8 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
             }
         });
 
-        Button mEmailSignInButton = (Button) getActivity().findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
+        Button muserSignInButton = (Button) getActivity().findViewById(R.id.user_sign_in_button);
+        muserSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
@@ -95,18 +95,18 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
 
     /**
      * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
+     * If there are form errors (invalid user, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
 
 
         // Reset errors.
-        mEmailView.setError(null);
+        muserView.setError(null);
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
+        String user = muserView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -119,22 +119,22 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
             cancel = true;
         }
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
+        // Check for a valid user address.
+        if (TextUtils.isEmpty(user)) {
+            muserView.setError(getString(R.string.error_field_required));
+            focusView = muserView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
+        } else if (!isuserValid(user)) {
+            muserView.setError(getString(R.string.error_invalid_user));
+            focusView = muserView;
             cancel = true;
         }
 
         // Check for a valid user
-        if (!email.equals(getActivity().getString(R.string.hardcoded_user)) || !password.equals(getActivity().getString(R.string.hardcoded_password))) {
-            mEmailView.setError("User name of password is invalid");
+        if (!user.equals(getActivity().getString(R.string.hardcoded_user)) || !password.equals(getActivity().getString(R.string.hardcoded_password))) {
+            muserView.setError("User name of password is invalid");
             mPasswordView.setError("User name of password is invalid");
-            //Log.d("test login", "" + email + " " +password);
+            //Log.d("test login", "" + user + " " +password);
             focusView = mPasswordView;
             cancel = true;
         }
@@ -148,10 +148,10 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
             // perform the user login attempt.
             // Check for this hard-coded user
             showProgress(true);
-            LoginManager.getInstance().doLogin(email, password, this, getActivity());
+            LoginManager.getInstance().doLogin(user, password, this, getActivity());
         }
     }
-    private boolean isEmailValid(String email) {
+    private boolean isuserValid(String user) {
         //TODO: Replace this with your own logic
         return true;
     }
@@ -205,7 +205,7 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
 
     @Override
     public void onLoginFail(String msg) {
-        mEmailView.setError("Invalid username or password:(");
+        muserView.setError("Invalid username or password:(");
         showProgress(false);
     }
 
