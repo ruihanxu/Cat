@@ -19,10 +19,24 @@ public class SignupManager {
     private SignupManager() {
     }
 
+    /**
+     * Get the instance of login manager.
+     *
+     * @return the instance of login manager
+     */
     public static SignupManager getInstance() {
         return ourInstance;
     }
 
+
+    /**
+     * Get the instance of login manager.
+     *
+     * @param username the string of the name
+     * @param password the string of the password
+     * @param isAdmin the boolean to check if the user is a administrator
+     * @param context the context message of the sign up
+     */
     public void doSignup(String username, String password, Boolean isAdmin, Context context) {
 
         if (isAdmin) {
