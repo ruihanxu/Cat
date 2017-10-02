@@ -31,14 +31,11 @@ public class SignupManager {
             user = new Cat();
         }
 
-        SharedPreferences preferences = context.getSharedPreferences("username", Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences("AccountList", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(username, password);
 
         editor.commit();
-
-        String myvar = preferences.getString(username, "empty");
-        Log.d("fetched password", myvar);
 
     }
 }

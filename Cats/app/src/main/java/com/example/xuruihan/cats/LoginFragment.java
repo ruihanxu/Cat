@@ -133,11 +133,11 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
 
         // Check for a valid user
         Context context = getContext();
-        SharedPreferences preferences = context.getSharedPreferences("username", Context.MODE_PRIVATE);
-        String fetchedPassword = preferences.getString(user, "empty");
+        SharedPreferences preferences = context.getSharedPreferences("AccountList", Context.MODE_PRIVATE);
+        String fetchedPassword = preferences.getString(user, "");
         Log.d("fetched password", fetchedPassword);
 
-        if (password.equals(fetchedPassword)) {
+        if (password.equals(fetchedPassword) && !fetchedPassword.equals("")) {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             // Check for this hard-coded user
