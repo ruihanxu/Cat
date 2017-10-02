@@ -43,6 +43,9 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
 
     private OnLoginFragmentInteractionListener loginListener;
 
+    /**
+     * The empty public constructor
+     */
     public LoginFragment() {
         // Required empty public constructor
     }

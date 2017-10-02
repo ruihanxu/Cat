@@ -36,6 +36,9 @@ public class SignUpFragment extends Fragment {
     private EditText passwordText;
     private RadioGroup radioGroup;
 
+    /**
+     * Empty public constructor of signup fragment
+     */
     public SignUpFragment() {
         // Required empty public constructor
     }

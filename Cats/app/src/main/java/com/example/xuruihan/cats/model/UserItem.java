@@ -12,6 +12,12 @@ public class UserItem {
     String password;
     Boolean isAdmin;
 
+    /**
+     * the constructor of UserItem
+     * @param userID the username of the userItem
+     * @param password the password of userItem
+     * @param isAdmin the account status of the userItem
+     */
     public UserItem (String userID, String password, Boolean isAdmin) {
         this.userID = userID;
         this.password = password;
