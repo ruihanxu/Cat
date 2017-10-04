@@ -22,6 +22,9 @@ public class StartUpFragment extends Fragment {
     private Button loginButton;
     private Button signUpButton;
 
+    /**
+     * Empty public constructor of Welcome page
+     */
     public StartUpFragment() {
         // Required empty public constructor
     }

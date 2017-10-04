@@ -6,10 +6,16 @@ package com.example.xuruihan.cats.model;
 
 public class Admin extends User {
 
+    /**
+     * Lock user's account
+     */
     public void lockCat(){
         //TODO: lock the user
     }
 
+    /**
+     * Unlock user's account
+     */
     public void unlockCat() {
         //TODO: unlock the user
     }

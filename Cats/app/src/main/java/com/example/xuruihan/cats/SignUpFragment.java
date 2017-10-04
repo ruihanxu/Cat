@@ -3,6 +3,7 @@ package com.example.xuruihan.cats;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -35,6 +36,9 @@ public class SignUpFragment extends Fragment {
     private EditText passwordText;
     private RadioGroup radioGroup;
 
+    /**
+     * Empty public constructor of signup fragment
+     */
     public SignUpFragment() {
         // Required empty public constructor
     }
@@ -66,7 +70,8 @@ public class SignUpFragment extends Fragment {
         registerButton.setOnClickListener((View v) -> {
             String username = userText.getText().toString();
             String password = passwordText.getText().toString();
-            if (username.matches("[\\S]+")) {
+
+            if (username.matches("[\\S]+") && password.matches("[\\S]+") && radioGroup.getCheckedRadioButtonId() != -1) {
                 boolean isAdmin;
                 int selectedButtonId = radioGroup.getCheckedRadioButtonId();
 
@@ -80,7 +85,15 @@ public class SignUpFragment extends Fragment {
 
 
             } else {
-                Toast.makeText(getActivity(), "Please type in a valid username", Toast.LENGTH_SHORT).show();
+                if (!username.matches("[\\S]+") && password.matches("[\\S]+")) {
+                    Toast.makeText(getActivity(), "Please type in a valid username", Toast.LENGTH_SHORT).show();
+                } else if (username.matches("[\\S]+") && !password.matches("[\\S]+")) {
+                    Toast.makeText(getActivity(), "Please type in a valid password", Toast.LENGTH_SHORT).show();
+                } else if (!username.matches("[\\S]+") && !password.matches("[\\S]+")){
+                    Toast.makeText(getActivity(), "Please type in a valid username and password", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Please choose an account type", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

@@ -12,7 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by xuruihan on 2016/11/19.
+ * Created by xuruihan on 2017/09/30.
  */
 public class LoginManager {
     private static final String LOGIN_URL = "";
