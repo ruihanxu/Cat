@@ -1,15 +1,19 @@
 package com.example.xuruihan.cats.model;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 /**
  * Created by League of Users on 2017/10/01.
  */
 public class User {
 
-    UserItem userItem;
-
+    private static UserItem userItem;
+    private static DatabaseReference mDatabase;
     /**
      * Default constructor of user to create a null user
      */
@@ -32,9 +36,16 @@ public class User {
     public UserItem getUserItem() {
         return userItem;
     }
+
     public void setUser(String user, String pass) {
         userItem.setUser(user);
         userItem.setPass(pass);
+
+    }
+
+    public static DatabaseReference getmDatabase(DatabaseReference mDatabase) {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        return mDatabase;
     }
 
     /**
@@ -44,9 +55,7 @@ public class User {
      * @throws JSONException if the jsonObj parameter is null
      */
     public static User fromJson(JSONObject jsonObj) throws JSONException {
-        //TODO: init necessary fields.
-        //return new User();
-        //read from file
-        return new User();
+        return new User(userItem);
+
     }
 }
