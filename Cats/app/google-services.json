@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "362867811148",
+    "firebase_url": "https://tom-and-jerry-a4bd1.firebaseio.com",
+    "project_id": "tom-and-jerry-a4bd1",
+    "storage_bucket": "tom-and-jerry-a4bd1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362867811148:android:49fac79c9ea4c31d",
+        "android_client_info": {
+          "package_name": "com.example.xuruihan.cats"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362867811148-abmehpvv3mj0ti9ta1rmi9mkag37hlaj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBox04u72TrjlX06w1rIe4MLV7mHeiaDlw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
