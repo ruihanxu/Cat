@@ -8,13 +8,11 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 
 public class Report {
-<<<<<<< HEAD
-=======
+
     private int key;
     private String date;
     private String locationType;
     private String zip;
-
     private String city;
     private String borough;
     private String longitude;
@@ -65,12 +63,5 @@ public class Report {
         return mDatabase;
     }
 
-
-
-
-
-
-
->>>>>>> af3df167e1aa1fd83c9a24f9aaf462706d9d5f4f
 
 }
