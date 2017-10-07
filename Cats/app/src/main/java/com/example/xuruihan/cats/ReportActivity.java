@@ -20,7 +20,7 @@ public class ReportActivity extends AppCompatActivity {
     private View zipView;
     private View dataView;
     private View keyView;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
