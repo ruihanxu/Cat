@@ -59,6 +59,7 @@ public class Report {
 
     public static DatabaseReference getmDatabase(DatabaseReference mDatabase) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
         return mDatabase;
     }
 
