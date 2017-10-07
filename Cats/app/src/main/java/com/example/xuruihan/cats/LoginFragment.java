@@ -54,7 +54,6 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
