@@ -5,4 +5,5 @@ package com.example.xuruihan.cats.model;
  */
 
 public class Report {
+
 }

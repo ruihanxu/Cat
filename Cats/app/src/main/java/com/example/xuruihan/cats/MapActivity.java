@@ -9,6 +9,7 @@ import android.widget.Button;
 public class MapActivity extends AppCompatActivity {
 
     private Button logoutButton;
+    private Button reportButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +19,12 @@ public class MapActivity extends AppCompatActivity {
         logoutButton = (Button) findViewById(R.id.logout_button);
         logoutButton.setOnClickListener((View v) -> {
             Intent intent = new Intent(this, StartUpActivity.class);
+            startActivity(intent);
+        });
+
+        reportButton = (Button) findViewById(R.id.report_button);
+        reportButton.setOnClickListener((View v1) -> {
+            Intent intent = new Intent(this, ReportActivity.class);
             startActivity(intent);
         });
 
