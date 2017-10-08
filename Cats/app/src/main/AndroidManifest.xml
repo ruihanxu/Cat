@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MapActivity"></activity>
+        <activity android:name=".ReportActivity"></activity>
         <activity
             android:name=".StartUpActivity"
             android:label="@string/title_activity_start_up"

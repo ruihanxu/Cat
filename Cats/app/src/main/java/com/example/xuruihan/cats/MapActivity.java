@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MapActivity extends AppCompatActivity {
 
     private Button logoutButton;
+    private Button reportButton;
     private static final String TAG = "MapActivity";
     private DatabaseReference mDatabase;
     @Override
@@ -27,6 +28,12 @@ public class MapActivity extends AppCompatActivity {
         logoutButton = (Button) findViewById(R.id.logout_button);
         logoutButton.setOnClickListener((View v) -> {
             Intent intent = new Intent(this, StartUpActivity.class);
+            startActivity(intent);
+        });
+
+        reportButton = (Button) findViewById(R.id.report_button);
+        reportButton.setOnClickListener((View v1) -> {
+            Intent intent = new Intent(this, ReportActivity.class);
             startActivity(intent);
         });
 
