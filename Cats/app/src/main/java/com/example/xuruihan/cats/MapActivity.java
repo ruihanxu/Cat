@@ -33,7 +33,7 @@ public class MapActivity extends AppCompatActivity {
 
         reportButton = (Button) findViewById(R.id.report_button);
         reportButton.setOnClickListener((View v1) -> {
-            Intent intent = new Intent(this, ReportActivity.class);
+            Intent intent = new Intent(this, HistoryActivity.class);
             startActivity(intent);
         });
 
