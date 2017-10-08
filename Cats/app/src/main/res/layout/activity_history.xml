@@ -29,7 +29,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.152"
-        android:layout_marginBottom="378dp" />
+        android:layout_marginBottom="397dp" />
 
     <Button
         android:id="@+id/report2"
@@ -51,7 +51,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.152"
-        android:layout_marginBottom="319dp" />
+        android:layout_marginBottom="301dp" />
 
     <Button
         android:id="@+id/report4"
@@ -62,7 +62,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.152"
-        android:layout_marginBottom="291dp" />
+        android:layout_marginBottom="251dp" />
 
     <Button
         android:id="@+id/report5"
@@ -73,7 +73,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.152"
-        android:layout_marginBottom="262dp" />
+        android:layout_marginBottom="203dp" />
 
     <Button
         android:id="@+id/report6"
@@ -84,6 +84,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.152"
-        android:layout_marginBottom="234dp" />
+        android:layout_marginBottom="155dp" />
 
 </android.support.constraint.ConstraintLayout>

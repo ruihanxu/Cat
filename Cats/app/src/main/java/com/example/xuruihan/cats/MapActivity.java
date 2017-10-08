@@ -36,22 +36,5 @@ public class MapActivity extends AppCompatActivity {
             Intent intent = new Intent(this, HistoryActivity.class);
             startActivity(intent);
         });
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("message23").setValue("hehe");
-
-        mDatabase.child("36907530").child("City").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                TextView textView1 = (TextView) findViewById(R.id.textView);
-                textView1.setText((String) dataSnapshot.getValue());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        // Write a message to the database
     }
 }
