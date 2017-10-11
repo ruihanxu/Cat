@@ -63,79 +63,157 @@ public class Report implements Parcelable{
         this.address = address;
     }
 
+    /**
+     * Getter for the borough
+     * @return the borough info
+     */
+
     public String getBorough() {
         return borough;
     }
 
+
+    /**
+     * Setter for the borough
+     * @param borough the borought to be set
+     */
     public void setBorough(String borough) {
         this.borough = borough;
     }
 
+    /**
+     * Getter for the key
+     * @return the key info
+     */
     public int getKey() {
         return key;
     }
 
+    /**
+     * Setter for the key
+     * @param key the key to be set
+     */
     public void setKey(int key) {
         this.key = key;
     }
 
+    /**
+     * Getter for the data
+     * @return the date info
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     * Setter for the date
+     * @param date the date to be set
+     */
     public void setDate(String date) {
         this.date = date;
     }
 
+    /**
+     * Getter for the location type
+     * @return the location type info
+     */
     public String getLocationType() {
         return locationType;
     }
 
+    /**
+     * Setter for the location type
+     * @param locationType the location type to be set
+     */
     public void setLocationType(String locationType) {
         this.locationType = locationType;
     }
 
+    /**
+     * Getter for the zip
+     * @return the zip info
+     */
     public String getZip() {
         return zip;
     }
 
+    /**
+     * Setter for the zip
+     * @param zip the zip info to be set
+     */
     public void setZip(String zip) {
         this.zip = zip;
     }
 
+    /**
+     * Getter for the city
+     * @return the city info
+     */
     public String getCity() {
         return city;
     }
 
+    /**
+     * Setter for the city
+     * @param city the city info to be set
+     */
     public void setCity(String city) {
         this.city = city;
     }
 
+    /**
+     * Getter for the longtitude
+     * @return the longitude of the sight
+     */
     public String getLongitude() {
         return longitude;
     }
 
+    /**
+     * Setter for the longitude
+     * @param longitude the longitude info to be set
+     */
     public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
+    /**
+     * Getter for the latitude
+     * @return the latitude info of the sight
+     */
     public String getLatitude() {
         return latitude;
     }
 
+    /**
+     * Setter for the latitude
+     * @param latitude the latitude info to be set
+     */
     public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
+    /**
+     * Getter for the address
+     * @return the address info of the sight
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Setter for the address
+     * @param address the address info to be set
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
-    // Parcelling part
+    /** Parcelling part
+     * The constructor of the report
+     *
+     */
+
     public Report(Parcel in){
         this.key = in.readInt();
         String[] data = new String[8];
@@ -171,6 +249,10 @@ public class Report implements Parcelable{
                 this.address,
         });
     }
+
+    /**
+     * The parcelable creator to get parcelin report
+     */
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public Report createFromParcel(Parcel in) {
             return new Report(in);

@@ -29,23 +29,6 @@ import static com.example.xuruihan.cats.R.id.report6;
  */
 
 
-//// Read from the database
-//myRef.addValueEventListener(new ValueEventListener() {
-//@Override
-//public void onDataChange(DataSnapshot dataSnapshot) {
-//        // This method is called once with the initial value and again
-//        // whenever data at this location is updated.
-//        String value = dataSnapshot.getValue(String.class);
-//        Log.d(TAG, "Value is: " + value);
-//        }
-//
-//@Override
-//public void onCancelled(DatabaseError error) {
-//        // Failed to read value
-//        Log.w(TAG, "Failed to read value.", error.toException());
-//        }
-//        });
-
 public class HistoryActivity extends AppCompatActivity {
     private Button button_detail1;
     private Button button_detail2;
@@ -102,6 +85,10 @@ public class HistoryActivity extends AppCompatActivity {
                 }
             });
         }
+
+        /**
+         * Detailed report show up after click report buttons
+         */
 
         button_detail1 = (Button) findViewById(R.id.report1);
         button_detail1.setOnClickListener((View v) -> {

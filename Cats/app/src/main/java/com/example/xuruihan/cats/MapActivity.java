@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MapActivity extends AppCompatActivity {
 
+
     private Button logoutButton;
     private Button reportButton;
     private static final String TAG = "MapActivity";
