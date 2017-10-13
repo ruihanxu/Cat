@@ -12,6 +12,7 @@ import android.widget.Button;
 
 public class NewReportActivity extends AppCompatActivity {
     Button uploadButton;
+    Button cancelButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +21,12 @@ public class NewReportActivity extends AppCompatActivity {
         uploadButton = (Button) findViewById(R.id.upload_button);
         uploadButton.setOnClickListener((View v) -> {
             Intent intent = new Intent(this, ReportActivity.class);
+            startActivity(intent);
+        });
+
+        cancelButton = (Button) findViewById(R.id.cancel_button);
+        cancelButton.setOnClickListener((View v) -> {
+            Intent intent = new Intent(this, MapActivity.class);
             startActivity(intent);
         });
     }
