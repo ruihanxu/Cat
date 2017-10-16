@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.xuruihan.cats.model.Report;
 import com.google.firebase.database.DataSnapshot;
@@ -14,15 +13,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import static android.R.attr.key;
-import static com.example.xuruihan.cats.R.id.report1;
-import static com.example.xuruihan.cats.R.id.report2;
-import static com.example.xuruihan.cats.R.id.report3;
-import static com.example.xuruihan.cats.R.id.report4;
-import static com.example.xuruihan.cats.R.id.report5;
-import static com.example.xuruihan.cats.R.id.report6;
-
 
 /**
  * Created by xuruihan on 2017/10/7.
@@ -61,7 +51,7 @@ public class HistoryActivity extends AppCompatActivity {
         for (int i = 0; i < 6; i++) {
             // Read from the database
             int finalI = i;
-            mDatabase.child(String.valueOf(keys[i])).addValueEventListener(new ValueEventListener() {
+            mDatabase.child("Entries").child(String.valueOf(keys[i])).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // This method is called once with the initial value and again
