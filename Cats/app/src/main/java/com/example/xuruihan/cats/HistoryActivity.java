@@ -54,9 +54,9 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        int[] keys = {36907530, 11464394, 15641584, 31614374, 35927676, 28765083};
+        int[] keys = {40000000, 11464394, 15641584, 31614374, 35927676, 28765083};
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         for (int i = 0; i < 6; i++) {
             // Read from the database
@@ -100,7 +100,6 @@ public class HistoryActivity extends AppCompatActivity {
         button_detail2 = (Button) findViewById(R.id.report2);
         button_detail2.setOnClickListener((View v1) -> {
             Intent intent = new Intent(this, ReportActivity.class);
-            int[] key = {11464394};
             intent.putExtra("Report", reportArray[1]);
             startActivity(intent);
         });
@@ -108,7 +107,6 @@ public class HistoryActivity extends AppCompatActivity {
         button_detail3 = (Button) findViewById(R.id.report3);
         button_detail3.setOnClickListener((View v1) -> {
             Intent intent = new Intent(this, ReportActivity.class);
-            int[] key = {15641584};
             intent.putExtra("Report", reportArray[2]);
             startActivity(intent);
         });
@@ -116,7 +114,6 @@ public class HistoryActivity extends AppCompatActivity {
         button_detail4 = (Button) findViewById(R.id.report4);
         button_detail4.setOnClickListener((View v1) -> {
             Intent intent = new Intent(this, ReportActivity.class);
-            int[] key = {31614374};
             intent.putExtra("Report", reportArray[3]);
             startActivity(intent);
         });
@@ -124,7 +121,6 @@ public class HistoryActivity extends AppCompatActivity {
         button_detail5 = (Button) findViewById(R.id.report5);
         button_detail5.setOnClickListener((View v1) -> {
             Intent intent = new Intent(this, ReportActivity.class);
-            int[] key = {35927676};
             intent.putExtra("Report", reportArray[4]);
             startActivity(intent);
         });
@@ -132,7 +128,6 @@ public class HistoryActivity extends AppCompatActivity {
         button_detail6 = (Button) findViewById(R.id.report6);
         button_detail6.setOnClickListener((View v1) -> {
             Intent intent = new Intent(this, ReportActivity.class);
-            int[] key = {28765083};
             intent.putExtra("Report", reportArray[5]);
             startActivity(intent);
         });

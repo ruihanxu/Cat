@@ -23,7 +23,6 @@ public class Report implements Parcelable{
     private String longitude;
     private String latitude;
     private String address;
-
     /**
      * Default constructor of user to create a null report
      */
