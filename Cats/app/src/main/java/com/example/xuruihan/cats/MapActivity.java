@@ -1,6 +1,7 @@
 package com.example.xuruihan.cats;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ public class MapActivity extends AppCompatActivity {
 
     private Button logoutButton;
     private Button reportButton;
+    private FloatingActionButton newReport;
     private static final String TAG = "MapActivity";
     private DatabaseReference mDatabase;
     @Override
@@ -35,6 +37,12 @@ public class MapActivity extends AppCompatActivity {
         reportButton = (Button) findViewById(R.id.report_button);
         reportButton.setOnClickListener((View v1) -> {
             Intent intent = new Intent(this, HistoryActivity.class);
+            startActivity(intent);
+        });
+
+        newReport = (FloatingActionButton) findViewById(R.id.new_button);
+        newReport.setOnClickListener((View v2) -> {
+            Intent intent = new Intent(this, NewReportActivity.class);
             startActivity(intent);
         });
     }

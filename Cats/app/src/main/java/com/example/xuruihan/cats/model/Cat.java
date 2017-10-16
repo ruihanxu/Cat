@@ -18,4 +18,9 @@ public class Cat extends User {
     public void updateReport() {
         //TODO: updateReport
     }
+
+    public void myHistory() {
+        //TODO: get user's history report
+    }
+
 }

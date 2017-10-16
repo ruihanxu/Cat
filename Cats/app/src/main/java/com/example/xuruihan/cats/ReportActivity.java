@@ -24,12 +24,6 @@ import static android.R.attr.key;
 
 public class ReportActivity extends AppCompatActivity {
     private Button BackToMap;
-    private View locationView;
-    private View cityView;
-    private View addressView;
-    private View zipView;
-    private View dataView;
-    private View keyView;
     private static final String TAG = "ReportActivity";
 
     private DatabaseReference mDatabase;
@@ -39,7 +33,7 @@ public class ReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
-        Report report = getIntent().getParcelableExtra("Report");
+        report = getIntent().getParcelableExtra("Report");
 
         BackToMap = (Button) findViewById(R.id.map_button);
         BackToMap.setOnClickListener((View v) -> {
