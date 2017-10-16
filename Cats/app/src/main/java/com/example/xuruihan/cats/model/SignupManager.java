@@ -61,7 +61,7 @@ public class SignupManager {
     public boolean doSignup(String userUID, String password, Boolean isAdmin, Activity activity) {
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Users").child(userUID).child("user type").setValue("haha");
+        mDatabase.child("Users").child(userUID).child("user type").setValue((isAdmin) ? 1 : 0);
 //        mAuth = FirebaseAuth.getInstance();
 //        mAuth.createUserWithEmailAndPassword(username, password)
 //                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
