@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -21,9 +22,19 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.xuruihan.cats.model.LoginManager;
 import com.example.xuruihan.cats.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
+import static android.content.ContentValues.TAG;
+import static com.example.xuruihan.cats.R.id.login;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,6 +51,9 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
     private View mProgressView;
     private View mLoginFormView;
     private Button cancelButton;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private String userUID;
 
     private OnLoginFragmentInteractionListener loginListener;
 
@@ -54,6 +68,35 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
     @Override
@@ -76,7 +119,7 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                if (id == login || id == EditorInfo.IME_NULL) {
                     attemptLogin();
                     return true;
                 }
@@ -94,6 +137,8 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
 
         mLoginFormView = getActivity().findViewById(R.id.login_form);
         mProgressView = getActivity().findViewById(R.id.login_progress);
+
+
     }
 
     /**
@@ -133,27 +178,30 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
             cancel = true;
         }
 
-        // Check for a valid user
-        Context context = getContext();
-        SharedPreferences preferences = context.getSharedPreferences("AccountList", Context.MODE_PRIVATE);
-        String fetchedPassword = preferences.getString(user, "");
-        Log.d("fetched password", fetchedPassword);
+        LoginManager.LoginCallBack callback = this;
 
-        if (password.equals(fetchedPassword) && !fetchedPassword.equals("")) {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            // Check for this hard-coded user
-            showProgress(true);
-            LoginManager.getInstance().doLogin(user, password, this, getActivity());
-        } else {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            muserView.setError("User name of password is invalid");
-            mPasswordView.setError("User name of password is invalid");
-            //Log.d("test login", "" + user + " " +password);
-            focusView = mPasswordView;
-            focusView.requestFocus();
-        }
+        mAuth.signInWithEmailAndPassword(user, password)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithEmail:failed", task.getException());
+                            Toast.makeText(getActivity(), "Log in failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            FirebaseUser currentUser = mAuth.getCurrentUser();
+                            userUID = currentUser.getUid();
+                            LoginManager.getInstance().doLogin(userUID, password, callback);
+                            Toast.makeText(getActivity(), "Log in successful.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
     private boolean isuserValid(String user) {
         //TODO: Replace this with your own logic

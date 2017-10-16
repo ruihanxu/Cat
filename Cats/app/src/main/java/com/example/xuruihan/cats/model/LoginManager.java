@@ -1,21 +1,34 @@
 package com.example.xuruihan.cats.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.xuruihan.cats.util.NetworkSingleton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static android.R.attr.value;
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by xuruihan on 2017/09/30.
  */
 public class LoginManager {
     private static final String LOGIN_URL = "";
+    DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference();
+    boolean isAdmin;
 
     /**
      * Show an interface to show if login success or fail.
@@ -63,46 +76,28 @@ public class LoginManager {
 
     /**
      * Log in to the app after type in the correct name and password
-     *
-     * @param username the username to log in
-     * @param password the password to log in
+     *  @param password the password to log in
      * @param callBack the status to check if logged in
-     * @param ctx the context to tell the user about the status
      */
-    public void doLogin(String username, String password, final LoginCallBack callBack, Context ctx) {
-        //TODO: build url here.
-        String url = LOGIN_URL;
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-            /**
-             * show the JSON object which do correct response
-             *
-             * @param response the response of the JSONobject
-             */
+    public void doLogin(String userUID, String password, final LoginCallBack callBack) {
+        mDatabase.child("Users").child(userUID).child("user type").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    callBack.onLoginSuccess(User.fromJson(response));
-                } catch (JSONException e) {
-                    callBack.onLoginFail("Invalid JSON response");
-                }
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                isAdmin = ((long) dataSnapshot.getValue() > 0);
+                Log.d(TAG, "Value is: " + value);
             }
-        }, new Response.ErrorListener() {
 
-            /**
-             * show the JSON object which make error in response
-             *
-             * @param error the error of the JSONobject
-             */
             @Override
-            public void onErrorResponse(VolleyError error) {
-                try {
-                    callBack.onLoginSuccess(User.fromJson(null));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-        NetworkSingleton.getInstance(ctx).addToRequestQueue(request);
+
+        User currentUser = new User(new UserItem(userUID, password, isAdmin));
+        callBack.onLoginSuccess(currentUser);
     }
 }
+
