@@ -46,10 +46,10 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history);
         int[] keys = {36907530, 11464394, 15641584, 31614374, 35927676, 28765083};
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        for (int i = 0; i < 6; i++) {
-            // Read from the database
+            for (int i = 0; i < 6; i++) {
+                // Read from the database
             int finalI = i;
             mDatabase.child("Entries").child(String.valueOf(keys[i])).addValueEventListener(new ValueEventListener() {
                 @Override
