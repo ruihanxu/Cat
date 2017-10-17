@@ -12,7 +12,7 @@ import static android.R.attr.data;
  * Created by Ruixuan on 10/6/17.
  */
 
-public class Report implements Parcelable{
+public class Report implements Parcelable {
 
     private int key;
     private String date;

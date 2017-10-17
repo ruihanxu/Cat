@@ -44,7 +44,7 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        int[] keys = {36907530, 11464394, 15641584, 31614374, 35927676, 28765083};
+        int[] keys = {40000000, 11464394, 15641584, 31614374, 35927676, 28765083};
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
