@@ -38,15 +38,32 @@ public class HistoryActivity extends AppCompatActivity {
     private Report report5;
     private Report report6;
     private Report[] reportArray = {report1, report2, report3, report4, report5, report6};
+    //private int currentID;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        int[] keys = {40000000, 11464394, 15641584, 31614374, 35927676, 28765083};
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        /*mDatabase.child("IDcounter").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                currentID = (int)(long) dataSnapshot.child("counter").getValue();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });*/
+        int[] keys = {NewReportActivity.currentID, 11464394, 15641584, 31614374, 35927676, 28765083};
+
+        // if no new report, print an old one
+        if (keys[0] == 0) {
+            keys[0] = 36939900;
+        }
 
         for (int i = 0; i < 6; i++) {
             // Read from the database
