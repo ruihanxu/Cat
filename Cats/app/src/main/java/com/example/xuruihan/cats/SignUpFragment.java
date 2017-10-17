@@ -133,7 +133,7 @@ public class SignUpFragment extends Fragment {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 registerSuccessfully = task.isSuccessful();
                                 if (task.isSuccessful()) {
-                                    SignupManager.getInstance().doSignup(user.getEmail(), password, isAdmin, getActivity());
+                                    SignupManager.getInstance().doSignup(user.getUid(), password, isAdmin, getActivity());
                                     Toast.makeText(getActivity(), "Thanks for registering", Toast.LENGTH_SHORT).show();
                                     signupListener.signupToMainPage();
 //                                    mDatabase.child("Users").child(username).child("user type").setValue((isAdmin) ? 1 : 0);
