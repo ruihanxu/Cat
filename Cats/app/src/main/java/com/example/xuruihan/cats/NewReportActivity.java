@@ -18,6 +18,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONObject;
 
+import static com.example.xuruihan.cats.MapActivity.currentID;
+
 
 /**
  * Created by xuruihan on 2017/10/13.
@@ -27,7 +29,6 @@ public class NewReportActivity extends AppCompatActivity {
     private Button uploadButton;
     private DatabaseReference mDatabase;
     private Report report;
-    public static int currentID;
 
     private static final String TAG = "NewReportActivity";
 

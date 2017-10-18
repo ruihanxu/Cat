@@ -14,6 +14,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.xuruihan.cats.MapActivity.currentID;
+
 /**
  * Created by xuruihan on 2017/10/7.
  */
@@ -58,7 +60,7 @@ public class HistoryActivity extends AppCompatActivity {
                 Log.w(TAG, "Failed to read value.", databaseError.toException());
             }
         });*/
-        int[] keys = {NewReportActivity.currentID, 11464394, 15641584, 31614374, 35927676, 28765083};
+        int[] keys = {currentID, 11464394, 15641584, 31614374, 35927676, 28765083};
 
         // if no new report, print an old one
         if (keys[0] == 0) {

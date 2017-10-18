@@ -23,10 +23,26 @@ public class MapActivity extends AppCompatActivity {
     private FloatingActionButton newReport;
     private static final String TAG = "MapActivity";
     private DatabaseReference mDatabase;
+
+    public static int currentID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("IDcounter").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                currentID = (int)(long) dataSnapshot.child("counter").getValue();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
 
         logoutButton = (Button) findViewById(R.id.logout_button);
         logoutButton.setOnClickListener((View v) -> {
