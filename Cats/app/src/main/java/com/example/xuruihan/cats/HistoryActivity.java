@@ -66,10 +66,6 @@ public class HistoryActivity extends AppCompatActivity {
             mListView.setClickable(true);
         }
 
-        if (listItems.isEmpty()) {
-            listItems.add("null report");
-        }
-
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
                 listItems);
@@ -83,6 +79,7 @@ public class HistoryActivity extends AppCompatActivity {
                 intent.putExtra("position", position);
                 // Or / And
                 intent.putExtra("id", id);
+                intent.putExtra("Report", reportArray[position]);
                 startActivity(intent);
             }
         });
@@ -90,11 +87,11 @@ public class HistoryActivity extends AppCompatActivity {
 
         /**
          * get reports from database
-         *//*
+         */
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        int[] keys = {currentID, 11464394, 15641584, 31614374, 35927676, 28765083};
+        int[] keys = {11464394, 15641584, 31614374, 35927676, 28765083};
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < keys.length; i++) {
             // Read from the database
             int finalI = i;
             mDatabase.child("Entries").child(String.valueOf(keys[i])).addValueEventListener(new ValueEventListener() {
@@ -120,7 +117,11 @@ public class HistoryActivity extends AppCompatActivity {
                     Log.w(TAG, "Failed to read value.", error.toException());
                 }
             });
-        }*/
+        }
+
+        for (int i:keys) {
+            listItems.add(""+ i);
+        }
     }
 
     protected ListView getListView() {
