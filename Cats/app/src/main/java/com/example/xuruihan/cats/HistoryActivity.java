@@ -1,11 +1,17 @@
 package com.example.xuruihan.cats;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.HeaderViewListAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.example.xuruihan.cats.model.Report;
 import com.google.firebase.database.DataSnapshot;
@@ -13,6 +19,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import static com.example.xuruihan.cats.MapActivity.currentID;
 
@@ -22,12 +30,12 @@ import static com.example.xuruihan.cats.MapActivity.currentID;
 
 
 public class HistoryActivity extends AppCompatActivity {
-    private Button button_detail1;
+    /*private Button button_detail1;
     private Button button_detail2;
     private Button button_detail3;
     private Button button_detail4;
     private Button button_detail5;
-    private Button button_detail6;
+    private Button button_detail6;*/
 
     private DatabaseReference mDatabase;
 
@@ -40,32 +48,51 @@ public class HistoryActivity extends AppCompatActivity {
     private Report report5;
     private Report report6;
     private Report[] reportArray = {report1, report2, report3, report4, report5, report6};
-    //private int currentID;
+    private int currentID;
 
+    ArrayAdapter<String> adapter;
+
+    ArrayList<String> listItems = new ArrayList<String>();
+
+    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
+        setContentView(R.layout.activity_scroll);
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        /*mDatabase.child("IDcounter").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                currentID = (int)(long) dataSnapshot.child("counter").getValue();
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "Failed to read value.", databaseError.toException());
-            }
-        });*/
-        int[] keys = {currentID, 11464394, 15641584, 31614374, 35927676, 28765083};
-
-        // if no new report, print an old one
-        if (keys[0] == 0) {
-            keys[0] = 36939900;
+        if (mListView == null) {
+            mListView = (ListView) findViewById(R.id.listView1);
+            mListView.setClickable(true);
         }
+
+        if (listItems.isEmpty()) {
+            listItems.add("null report");
+        }
+
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,
+                listItems);
+        setListAdapter(adapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // When clicked perform some action...
+                Log.i("HelloListView", "You clicked Item: " + id + " at position:" + position);
+                // Then you start a new Activity via Intent
+                Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
+                intent.putExtra("position", position);
+                // Or / And
+                intent.putExtra("id", id);
+                startActivity(intent);
+            }
+        });
+
+
+        /**
+         * get reports from database
+         *//*
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        int[] keys = {currentID, 11464394, 15641584, 31614374, 35927676, 28765083};
 
         for (int i = 0; i < 6; i++) {
             // Read from the database
@@ -93,13 +120,34 @@ public class HistoryActivity extends AppCompatActivity {
                     Log.w(TAG, "Failed to read value.", error.toException());
                 }
             });
+        }*/
+    }
+
+    protected ListView getListView() {
+        if (mListView == null) {
+            mListView = (ListView) findViewById(R.id.listView1);
         }
+        return mListView;
+    }
+
+    protected void setListAdapter(ListAdapter adapter) {
+        getListView().setAdapter(adapter);
+    }
+
+    protected ListAdapter getListAdapter() {
+        ListAdapter adapter = getListView().getAdapter();
+        if (adapter instanceof HeaderViewListAdapter) {
+            return ((HeaderViewListAdapter) adapter).getWrappedAdapter();
+        } else {
+            return adapter;
+        }
+    }
 
         /**
          * Detailed report show up after click report buttons
          */
 
-        button_detail1 = (Button) findViewById(R.id.report1);
+        /*button_detail1 = (Button) findViewById(R.id.report1);
         button_detail1.setOnClickListener((View v) -> {
             Intent intent = new Intent(this, ReportActivity.class);
             intent.putExtra("Report", reportArray[0]);
@@ -145,5 +193,5 @@ public class HistoryActivity extends AppCompatActivity {
             intent.putExtra("Report", reportArray[5]);
             startActivity(intent);
         });
-    }
+    }*/
 }
