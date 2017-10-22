@@ -52,7 +52,11 @@ public class NewReportActivity extends AppCompatActivity {
 
         uploadButton = (Button) findViewById(R.id.upload_button);
         uploadButton.setOnClickListener((View v) -> {
-            Intent intent = new Intent(this, ReportActivity.class);
+            Intent intent = new Intent(this, HistoryActivity.class);
+
+            //give HistoryActivity a boolean that a new item is on the list
+            //Intent intent1 = new Intent(this, HistoryActivity.class);
+            //intent.putExtra("isAdded", intent1);
 
             //get user input to a new Report object
             setUpReport();

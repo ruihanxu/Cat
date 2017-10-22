@@ -21,6 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.example.xuruihan.cats.MapActivity.currentID;
 
@@ -47,7 +49,7 @@ public class HistoryActivity extends AppCompatActivity {
     private Report report4;
     private Report report5;
     private Report report6;
-    private Report[] reportArray = {report1, report2, report3, report4, report5, report6};
+    private List<Report> reportArray = new ArrayList<>();
     private int currentID;
 
     ArrayAdapter<String> adapter;
@@ -55,15 +57,23 @@ public class HistoryActivity extends AppCompatActivity {
     ArrayList<String> listItems = new ArrayList<String>();
 
     private ListView mListView;
+    private Report newReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scroll);
 
+        newReport = getIntent().getParcelableExtra("Report");
+
         if (mListView == null) {
             mListView = (ListView) findViewById(R.id.listView1);
             mListView.setClickable(true);
+        }
+
+        if (newReport != null) {
+            reportArray.add(0, newReport);
+            listItems.add(""+ newReport.getKey());
         }
 
         adapter = new ArrayAdapter<String>(this,
@@ -79,7 +89,7 @@ public class HistoryActivity extends AppCompatActivity {
                 intent.putExtra("position", position);
                 // Or / And
                 intent.putExtra("id", id);
-                intent.putExtra("Report", reportArray[position]);
+                intent.putExtra("Report", reportArray.get(position));
                 startActivity(intent);
             }
         });
@@ -99,7 +109,7 @@ public class HistoryActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // This method is called once with the initial value and again
                     // whenever data at this location is updated.
-                    reportArray[finalI] = new Report(keys[finalI],
+                    Report r = new Report(keys[finalI],
                             (String) dataSnapshot.child("Created Date").getValue(),
                             (String) dataSnapshot.child("Location Type").getValue(),
                             (String) dataSnapshot.child("Incident Zip").getValue(),
@@ -109,6 +119,7 @@ public class HistoryActivity extends AppCompatActivity {
                             (String) dataSnapshot.child("Latitude").getValue(),
                             (String) dataSnapshot.child("Incident Address").getValue()
                     );
+                    reportArray.add(r);
                 }
 
                 @Override
