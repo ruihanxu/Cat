@@ -4,18 +4,22 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ViewStubCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
+import com.example.xuruihan.cats.model.Report;
+import com.example.xuruihan.cats.model.ReportManager;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MapActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MapActivity extends AppCompatActivity implements com.example.xuruihan.cats.LoadingView {
 
 
     private Button logoutButton;
@@ -23,6 +27,8 @@ public class MapActivity extends AppCompatActivity {
     private FloatingActionButton newReport;
     private static final String TAG = "MapActivity";
     private DatabaseReference mDatabase;
+    private View stubView;
+    private ArrayList<Report> reports;
 
     public static int currentID;
 
@@ -61,5 +67,26 @@ public class MapActivity extends AppCompatActivity {
             Intent intent = new Intent(this, NewReportActivity.class);
             startActivity(intent);
         });
+
+        // fetch big chunk of data from firebase, "reports" has the data
+        // The following is a sample to get an arraylist of data.
+        /**
+        ReportManager reportManager = new ReportManager();
+        reports = new ArrayList<>();
+        reportManager.getReportsByDate(reports, "08/09/2017 12:00:00 AM", "09/09/2017 12:00:00 AM", this);
+         */
+    }
+
+    @Override
+    public void setUpLoadingView() {
+        stubView = ((ViewStubCompat) findViewById(R.id.viewstub_loading)).inflate();
+    }
+
+    @Override
+    public void setDownLoadingView() {
+        stubView.setVisibility(View.GONE);
+        findViewById(R.id.main_panel).setVisibility(View.VISIBLE);
+        if (reports.size() != 0) {Log.d(TAG, reports.get(0).getAddress());}
+        else {Log.d(TAG, "hehe");}
     }
 }

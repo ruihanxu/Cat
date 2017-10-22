@@ -56,35 +56,9 @@ public class SignupManager {
      * @param isAdmin the boolean to check if the user is a administrator
      * @param context the context message of the sign up
      */
-    private boolean isSuccessful = false;
-
-    public boolean doSignup(String userUID, String password, Boolean isAdmin, Activity activity) {
+    public void doSignup(String userUID, String password, Boolean isAdmin, Activity activity) {
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Users").child(userUID).child("user type").setValue((isAdmin) ? 1 : 0);
-//        mAuth = FirebaseAuth.getInstance();
-//        mAuth.createUserWithEmailAndPassword(username, password)
-//                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        FirebaseUser user = mAuth.getCurrentUser();
-//                        isSuccessful = task.isSuccessful();
-//                        if (task.isSuccessful()) {
-//                        } else {
-//                            FirebaseAuthException e = (FirebaseAuthException )task.getException();
-//                            Log.d(TAG, "hahaha");
-//                            Log.e(TAG, "Registration failure", e);
-//                        }
-//                    }
-//                });
-//
-//        if (isAdmin) {
-//            user = new Admin();
-//        } else {
-//            user = new Cat();
-//        }
-
-
-        return isSuccessful;
     }
 }

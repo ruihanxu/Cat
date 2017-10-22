@@ -21,7 +21,7 @@ import static com.example.xuruihan.cats.MapActivity.currentID;
  */
 
 
-public class HistoryActivity extends AppCompatActivity {
+public class HistoryActivity extends AppCompatActivity implements LoadingView {
     private Button button_detail1;
     private Button button_detail2;
     private Button button_detail3;
@@ -145,5 +145,15 @@ public class HistoryActivity extends AppCompatActivity {
             intent.putExtra("Report", reportArray[5]);
             startActivity(intent);
         });
+    }
+
+    @Override
+    public void setUpLoadingView() {
+
+    }
+
+    @Override
+    public void setDownLoadingView() {
+
     }
 }
