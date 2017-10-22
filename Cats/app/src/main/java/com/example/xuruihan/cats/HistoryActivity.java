@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import com.example.xuruihan.cats.model.History;
 
 import static com.example.xuruihan.cats.MapActivity.currentID;
 
@@ -49,7 +50,9 @@ public class HistoryActivity extends AppCompatActivity {
     private Report report4;
     private Report report5;
     private Report report6;
+
     private List<Report> reportArray = new ArrayList<>();
+
     private int currentID;
 
     ArrayAdapter<String> adapter;
@@ -58,6 +61,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     private ListView mListView;
     private Report newReport;
+    private  History history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +103,8 @@ public class HistoryActivity extends AppCompatActivity {
          * get reports from database
          */
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        int[] keys = {11464394, 15641584, 31614374, 35927676, 28765083};
+        int[] keys = {11464394, 15641584, 31614374, 35927676, 28765083, 36908696, 36910927, 36910928,
+                36910929, 36911066, 36911067, 36911108, 36911109, 36911110, 36911128, 36912108};
 
         for (int i = 0; i < keys.length; i++) {
             // Read from the database

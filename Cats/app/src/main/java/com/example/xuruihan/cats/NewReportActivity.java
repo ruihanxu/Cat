@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.example.xuruihan.cats.model.History;
 
 import org.json.JSONObject;
 
@@ -27,8 +28,10 @@ import static com.example.xuruihan.cats.MapActivity.currentID;
 
 public class NewReportActivity extends AppCompatActivity {
     private Button uploadButton;
+    private Button cancelButton;
     private DatabaseReference mDatabase;
     private Report report;
+    private History history;
 
     private static final String TAG = "NewReportActivity";
 
@@ -59,8 +62,8 @@ public class NewReportActivity extends AppCompatActivity {
             //intent.putExtra("isAdded", intent1);
 
             //get user input to a new Report object
-            setUpReport();
 
+            setUpReport();
             //update currentID for the next key
             currentID++;
 
@@ -79,10 +82,16 @@ public class NewReportActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        cancelButton = (Button) findViewById(R.id.cancel_button);
+        cancelButton.setOnClickListener((View v) -> {
+            Intent intent = new Intent(this, MapActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     /**
-     * Get user's input to new a Report object for uploading
+     * Get user's input to new a Report object for up loading
      */
     @Keep
     public Report setUpReport() {
