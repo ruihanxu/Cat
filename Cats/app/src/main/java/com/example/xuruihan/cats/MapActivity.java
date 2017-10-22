@@ -70,12 +70,11 @@ public class MapActivity extends AppCompatActivity implements com.example.xuruih
 
         // fetch big chunk of data from firebase, "reports" has the data
         // The following is a sample to get an arraylist of data.
-        /**
         ReportManager reportManager = new ReportManager();
         reports = new ArrayList<>();
         reportManager.getReportsByDate(reports, "08/09/2017 12:00:00 AM", "09/09/2017 12:00:00 AM", this);
-         */
     }
+
 
     @Override
     public void setUpLoadingView() {
