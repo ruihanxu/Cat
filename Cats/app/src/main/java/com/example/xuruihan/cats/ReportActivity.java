@@ -28,16 +28,19 @@ public class ReportActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private Report report;
+    //private boolean isAdded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
         report = getIntent().getParcelableExtra("Report");
+        //isAdded = getIntent().getParcelableExtra("isAdded");
 
         BackToMap = (Button) findViewById(R.id.map_button);
         BackToMap.setOnClickListener((View v) -> {
             Intent intent = new Intent(this, MapActivity.class);
+            //intent.putExtra("isAdded", isAdded);
             startActivity(intent);
         });
 
