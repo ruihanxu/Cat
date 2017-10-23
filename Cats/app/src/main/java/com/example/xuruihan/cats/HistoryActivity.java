@@ -3,6 +3,7 @@ package com.example.xuruihan.cats;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.INotificationSideChannel;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -21,8 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Arrays;
 import com.example.xuruihan.cats.model.History;
 
 import static com.example.xuruihan.cats.MapActivity.currentID;
@@ -54,6 +55,15 @@ public class HistoryActivity extends AppCompatActivity implements LoadingView{
 
     private List<Report> reportArray = new ArrayList<>();
 
+
+
+//    static ArrayList<Integer> keys = new ArrayList<>();
+
+
+    static Integer[] arrayKey = {11464394, 15641584, 31614374, 35927676, 28765083, 36908696, 36910927, 36910928,
+            36910929, 36911066, 36911067, 36911108, 36911109, 36911110, 36911128, 36912108};
+    static ArrayList<Integer> keys = new ArrayList<>();
+
     private int currentID;
 
     ArrayAdapter<String> adapter;
@@ -66,6 +76,27 @@ public class HistoryActivity extends AppCompatActivity implements LoadingView{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        keys.add(11464394);
+//        keys.add(15641584);
+//        keys.add(31614374);
+//        keys.add(35927676);
+//        keys.add(28765083);
+//        keys.add(36908696);
+//        keys.add(36910927);
+//        keys.add(36910928);
+//        keys.add(36910929);
+//        keys.add(36911066);
+//        keys.add(36911067);
+//        keys.add(36911108);
+//        keys.add(36911109);
+//        keys.add(36911110);
+//        keys.add(36911128);
+//        keys.add(36912108);
+
+        for(Integer x: arrayKey){
+            if (!keys.contains(x))
+                keys.add(x);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scroll);
 
@@ -104,18 +135,17 @@ public class HistoryActivity extends AppCompatActivity implements LoadingView{
          * get reports from database
          */
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        int[] keys = {11464394, 15641584, 31614374, 35927676, 28765083, 36908696, 36910927, 36910928,
-                36910929, 36911066, 36911067, 36911108, 36911109, 36911110, 36911128, 36912108};
 
-        for (int i = 0; i < keys.length; i++) {
+
+        for (int i = 0; i < keys.size(); i++) {
             // Read from the database
             int finalI = i;
-            mDatabase.child("Entries").child(String.valueOf(keys[i])).addValueEventListener(new ValueEventListener() {
+            mDatabase.child("Entries").child(String.valueOf(keys.get(i))).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // This method is called once with the initial value and again
                     // whenever data at this location is updated.
-                    Report r = new Report(keys[finalI],
+                    Report r = new Report(keys.get(finalI),
                             (String) dataSnapshot.child("Created Date").getValue(),
                             (String) dataSnapshot.child("Location Type").getValue(),
                             (String) dataSnapshot.child("Incident Zip").getValue(),
@@ -125,7 +155,10 @@ public class HistoryActivity extends AppCompatActivity implements LoadingView{
                             (String) dataSnapshot.child("Latitude").getValue(),
                             (String) dataSnapshot.child("Incident Address").getValue()
                     );
+
                     reportArray.add(r);
+
+
                 }
 
                 @Override

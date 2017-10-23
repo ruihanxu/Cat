@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 
 import com.example.xuruihan.cats.model.Report;
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +19,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.example.xuruihan.cats.model.History;
 
 import org.json.JSONObject;
+
+import java.math.BigInteger;
 
 import static com.example.xuruihan.cats.MapActivity.currentID;
 
@@ -55,7 +58,7 @@ public class NewReportActivity extends AppCompatActivity {
 
         uploadButton = (Button) findViewById(R.id.upload_button);
         uploadButton.setOnClickListener((View v) -> {
-            Intent intent = new Intent(this, HistoryActivity.class);
+            Intent intent = new Intent(this, MapActivity.class);
 
             //give HistoryActivity a boolean that a new item is on the list
             //Intent intent1 = new Intent(this, HistoryActivity.class);
@@ -71,6 +74,7 @@ public class NewReportActivity extends AppCompatActivity {
             //update IDcounter for the next key
             mDatabase.child("IDcounter").child("counter").setValue(currentID);
 
+
             //upload data
             mDatabase.child("Entries").child(""+currentID).child("Created Date").setValue(report.getDate());
             mDatabase.child("Entries").child(""+currentID).child("Borough").setValue(report.getBorough());
@@ -78,6 +82,8 @@ public class NewReportActivity extends AppCompatActivity {
             mDatabase.child("Entries").child(""+currentID).child("Incident Address").setValue(report.getAddress());
             mDatabase.child("Entries").child(""+currentID).child("Incident Zip").setValue(report.getZip());
             mDatabase.child("Entries").child(""+currentID).child("Location Type").setValue(report.getLocationType());
+
+            HistoryActivity.keys.add(currentID);
 
             startActivity(intent);
         });
