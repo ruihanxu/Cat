@@ -24,9 +24,18 @@ public class UserItem {
         this.isAdmin = isAdmin;
     }
 
+    /**
+     * Setter for username
+     * @param user the user to be set
+     */
     public void setUser(String user) {
         userID = user;
     }
+
+    /**
+     * Setter for password
+     * @param pass the password to be set
+     */
     public void setPass(String pass) {
         password = pass;
     }

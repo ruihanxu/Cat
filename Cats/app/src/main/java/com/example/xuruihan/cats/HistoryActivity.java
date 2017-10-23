@@ -1,15 +1,12 @@
 package com.example.xuruihan.cats;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.INotificationSideChannel;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.HeaderViewListAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -23,10 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
-import com.example.xuruihan.cats.model.History;
-
-import static com.example.xuruihan.cats.MapActivity.currentID;
 
 /**
  * Created by xuruihan on 2017/10/7.
@@ -35,23 +28,10 @@ import static com.example.xuruihan.cats.MapActivity.currentID;
 
 
 public class HistoryActivity extends AppCompatActivity implements LoadingView{
-    /*private Button button_detail1;
-    private Button button_detail2;
-    private Button button_detail3;
-    private Button button_detail4;
-    private Button button_detail5;
-    private Button button_detail6;*/
 
     private DatabaseReference mDatabase;
 
     private static final String TAG = "HistoryActivity";
-
-    private Report report1;
-    private Report report2;
-    private Report report3;
-    private Report report4;
-    private Report report5;
-    private Report report6;
 
     private List<Report> reportArray = new ArrayList<>();
 
@@ -72,26 +52,9 @@ public class HistoryActivity extends AppCompatActivity implements LoadingView{
 
     private ListView mListView;
     private Report newReport;
-    private  History history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        keys.add(11464394);
-//        keys.add(15641584);
-//        keys.add(31614374);
-//        keys.add(35927676);
-//        keys.add(28765083);
-//        keys.add(36908696);
-//        keys.add(36910927);
-//        keys.add(36910928);
-//        keys.add(36910929);
-//        keys.add(36911066);
-//        keys.add(36911067);
-//        keys.add(36911108);
-//        keys.add(36911109);
-//        keys.add(36911110);
-//        keys.add(36911128);
-//        keys.add(36912108);
 
         for(Integer x: arrayKey){
             if (!keys.contains(x))
@@ -174,6 +137,10 @@ public class HistoryActivity extends AppCompatActivity implements LoadingView{
         }
     }
 
+    /**
+     * Getter for the listview
+     * @return the listview
+     */
     protected ListView getListView() {
         if (mListView == null) {
             mListView = (ListView) findViewById(R.id.listView1);
@@ -181,10 +148,18 @@ public class HistoryActivity extends AppCompatActivity implements LoadingView{
         return mListView;
     }
 
+    /**
+     * Setter for list adapter
+     * @param adapter the adapter to be set
+     */
     protected void setListAdapter(ListAdapter adapter) {
         getListView().setAdapter(adapter);
     }
 
+    /**
+     * Getter for list adapter
+     * @return the list adapter
+     */
     protected ListAdapter getListAdapter() {
         ListAdapter adapter = getListView().getAdapter();
         if (adapter instanceof HeaderViewListAdapter) {
@@ -194,57 +169,6 @@ public class HistoryActivity extends AppCompatActivity implements LoadingView{
         }
     }
 
-        /**
-         * Detailed report show up after click report buttons
-         */
-
-        /*button_detail1 = (Button) findViewById(R.id.report1);
-        button_detail1.setOnClickListener((View v) -> {
-            Intent intent = new Intent(this, ReportActivity.class);
-            intent.putExtra("Report", reportArray[0]);
-            startActivity(intent);
-        });
-
-        button_detail2 = (Button) findViewById(R.id.report2);
-        button_detail2.setOnClickListener((View v1) -> {
-            Intent intent = new Intent(this, ReportActivity.class);
-            int[] key = {11464394};
-            intent.putExtra("Report", reportArray[1]);
-            startActivity(intent);
-        });
-
-        button_detail3 = (Button) findViewById(R.id.report3);
-        button_detail3.setOnClickListener((View v1) -> {
-            Intent intent = new Intent(this, ReportActivity.class);
-            int[] key = {15641584};
-            intent.putExtra("Report", reportArray[2]);
-            startActivity(intent);
-        });
-
-        button_detail4 = (Button) findViewById(R.id.report4);
-        button_detail4.setOnClickListener((View v1) -> {
-            Intent intent = new Intent(this, ReportActivity.class);
-            int[] key = {31614374};
-            intent.putExtra("Report", reportArray[3]);
-            startActivity(intent);
-        });
-
-        button_detail5 = (Button) findViewById(R.id.report5);
-        button_detail5.setOnClickListener((View v1) -> {
-            Intent intent = new Intent(this, ReportActivity.class);
-            int[] key = {35927676};
-            intent.putExtra("Report", reportArray[4]);
-            startActivity(intent);
-        });
-
-        button_detail6 = (Button) findViewById(R.id.report6);
-        button_detail6.setOnClickListener((View v1) -> {
-            Intent intent = new Intent(this, ReportActivity.class);
-            int[] key = {28765083};
-            intent.putExtra("Report", reportArray[5]);
-            startActivity(intent);
-        });
-    }*/
     @Override
     public void setUpLoadingView() {
 

@@ -203,11 +203,22 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
                     }
                 });
     }
+
+    /**
+     * Check to see if the username is valid
+     * @param user the user name to be checked
+     * @return
+     */
     private boolean isuserValid(String user) {
         //TODO: Replace this with your own logic
         return true;
     }
 
+    /**
+     * Check to see if the password is valid
+     * @param password the paswrod to be checked
+     * @return
+     */
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return true;

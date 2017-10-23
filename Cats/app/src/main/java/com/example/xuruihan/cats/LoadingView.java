@@ -6,7 +6,13 @@ package com.example.xuruihan.cats;
 
 public interface LoadingView {
 
+    /**
+     * Setter for uploading view
+     */
     public void setUpLoadingView();
 
+    /**
+     * Setter for download view
+     */
     public void setDownLoadingView();
 }

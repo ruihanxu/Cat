@@ -37,12 +37,22 @@ public class User {
         return userItem;
     }
 
+    /**
+     * Setter for user
+     * @param user the username to be set
+     * @param pass the password to be set
+     */
     public void setUser(String user, String pass) {
         userItem.setUser(user);
         userItem.setPass(pass);
 
     }
 
+    /**
+     * the getter for firebase
+     * @param mDatabase the database to be get
+     * @return the database
+     */
     public static DatabaseReference getmDatabase(DatabaseReference mDatabase) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         return mDatabase;

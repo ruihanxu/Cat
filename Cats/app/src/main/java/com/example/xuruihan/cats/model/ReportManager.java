@@ -25,6 +25,12 @@ public class ReportManager {
     private DatabaseReference mDatabase;
     private Query query;
 
+    /**
+     * Method to get the latest updated report
+     * @param returnArrayList the updated arraylist of reports
+     * @param amount limit to the last updated report
+     * @param callback the loading view
+     */
     public void getLatestReports(ArrayList<Report> returnArrayList, int amount, LoadingView callback) {
         callback.setUpLoadingView();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -56,6 +62,13 @@ public class ReportManager {
         });
     }
 
+    /**
+     * Methods to get reports by date
+     * @param returnArrayList the result list of reports to be returned
+     * @param startDate the start date
+     * @param endDate the end date
+     * @param callback the loading view
+     */
     public void getReportsByDate(ArrayList<Report> returnArrayList, String startDate, String endDate, LoadingView callback) {
         callback.setUpLoadingView();
         mDatabase = FirebaseDatabase.getInstance().getReference();

@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 
 import com.example.xuruihan.cats.model.Report;
 import com.google.firebase.database.DataSnapshot;
@@ -16,11 +15,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.example.xuruihan.cats.model.History;
-
-import org.json.JSONObject;
-
-import java.math.BigInteger;
 
 import static com.example.xuruihan.cats.MapActivity.currentID;
 
@@ -34,7 +28,6 @@ public class NewReportActivity extends AppCompatActivity {
     private Button cancelButton;
     private DatabaseReference mDatabase;
     private Report report;
-    private History history;
 
     private static final String TAG = "NewReportActivity";
 
