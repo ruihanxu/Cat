@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.xuruihan.cats.LoadingView;
+import com.example.xuruihan.cats.MapActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -69,8 +70,8 @@ public class ReportManager {
      * @param endDate the end date
      * @param callback the loading view
      */
-    public void getReportsByDate(ArrayList<Report> returnArrayList, String startDate, String endDate, LoadingView callback) {
-        callback.setUpLoadingView();
+    public void getReportsByDate(ArrayList<Report> returnArrayList, String startDate, String endDate, MapActivity callback) {
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
         query = mDatabase.child("Entries").orderByChild("Created Date").startAt(startDate).endAt(endDate);
         query.addValueEventListener(new ValueEventListener() {
@@ -89,7 +90,7 @@ public class ReportManager {
                     returnArrayList.add(report);
                     Log.d(TAG, report.getAddress());
                 }
-                callback.setDownLoadingView();
+                callback.displayResult(returnArrayList);
             }
 
             @Override

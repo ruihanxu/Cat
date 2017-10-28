@@ -64,6 +64,15 @@ public class Report implements Parcelable {
     }
 
     /**
+     * Getter for description
+     *@return the description
+     */
+    public String getDescription() {
+        return "Date : " + date + "\nAddress : " + address;
+    }
+
+
+    /**
      * Getter for the borough
      * @return the borough info
      */
