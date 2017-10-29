@@ -46,6 +46,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private Button logoutButton;
     private Button reportButton;
+    private Button graphButton;
     private FloatingActionButton newReport;
     private static final String TAG = "MapActivity";
     private DatabaseReference mDatabase;
@@ -101,6 +102,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         reportButton = (Button) findViewById(R.id.report_button);
         reportButton.setOnClickListener((View v1) -> {
             Intent intent = new Intent(this, HistoryActivity.class);
+            startActivity(intent);
+        });
+
+        graphButton = (Button) findViewById(R.id.graph_button);
+        graphButton.setOnClickListener((View v1) -> {
+            Intent intent = new Intent(this, GraphActivity.class);
             startActivity(intent);
         });
 

@@ -1,0 +1,3 @@
+[submodule "Cats/Cats/GraphView"]
+	path = Cats/Cats/GraphView
+	url = https://github.com/appsthatmatter/GraphView
