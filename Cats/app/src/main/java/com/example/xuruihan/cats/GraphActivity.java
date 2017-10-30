@@ -1,7 +1,8 @@
 package com.example.xuruihan.cats;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,10 +17,14 @@ import android.widget.EditText;
 
 import com.example.xuruihan.cats.model.Report;
 import com.example.xuruihan.cats.model.ReportManager;
+import com.google.firebase.database.DatabaseReference;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.PointsGraphSeries;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 
 import java.util.ArrayList;
 
@@ -29,13 +34,15 @@ import java.util.ArrayList;
 
 public class GraphActivity extends AppCompatActivity{
 
-    private LineGraphSeries<DataPoint> series;
+    private static LineGraphSeries<DataPoint> series;
+    private static GraphView graph;
     private int lastX = 0;
     private static EditText startDate;
     private static EditText endDate;
     private static boolean startDateSelection;
     private static boolean endDateSelection;
     private static boolean startDateSelected;
+    private DatabaseReference mDatabase;
 
     private static String startDateString;
     private static String endDateString;
@@ -46,30 +53,25 @@ public class GraphActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
         // we get graph view instance
-        GraphView graph = (GraphView) findViewById(R.id.graph);
-        // data
-        series = new LineGraphSeries<DataPoint>();
-        graph.addSeries(series);
-        // customize a little bit viewport
-        Viewport viewport = graph.getViewport();
-        viewport.setYAxisBoundsManual(true);
-        viewport.setMinY(0);
-        viewport.setMaxY(10);
-        viewport.setScrollable(true);
+       graph = (GraphView) findViewById(R.id.graph);
 
-        startDate = (EditText) findViewById(R.id.startDate);
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Year");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Rat Sightings");
+
+
+        startDate = (EditText) findViewById(R.id.gstartDate);
         startDate.setOnClickListener((View v) -> {
             startDateSelection = true;
             startDateSelected = true;
-            DialogFragment dialogFragment = new MapActivity.DatePickerFragment();
+            DialogFragment dialogFragment = new GraphActivity.DatePickerFragment();
             dialogFragment.show(getSupportFragmentManager(), "datePicker");
         });
 
-        endDate = (EditText) findViewById(R.id.endDate);
+        endDate = (EditText) findViewById(R.id.gendDate);
         endDate.setOnClickListener((View v) -> {
             endDateSelection = true;
             startDateSelected = false;
-            DialogFragment dialogFragment = new MapActivity.DatePickerFragment();
+            DialogFragment dialogFragment = new GraphActivity.DatePickerFragment();
             dialogFragment.show(getSupportFragmentManager(), "datePicker");
         });
 
@@ -80,6 +82,7 @@ public class GraphActivity extends AppCompatActivity{
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current date as the default date in the picker
@@ -91,6 +94,7 @@ public class GraphActivity extends AppCompatActivity{
             // Create a new instance of DatePickerDialog and return it
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
+
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
@@ -108,9 +112,35 @@ public class GraphActivity extends AppCompatActivity{
             }
 
             if (startDateSelection && endDateSelection) {
+                StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
+                int startYear = Integer.parseInt(startDateString.substring(6,10));
+                int endYear = Integer.parseInt(endDateString.substring(6,10));
+                String[] xLabels = new String[endYear - startYear];
+                for (int i = 0; i < xLabels.length; i++) {
+                    xLabels[i] = String.valueOf(i + startYear);
+                }
+
+                staticLabelsFormatter.setHorizontalLabels(xLabels);
+                staticLabelsFormatter.setVerticalLabels(new String[] {"low", "middle", "high"});
+                graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+
+
                 ArrayList<Report> listReport = new ArrayList<>();
+                ArrayList<Integer> listYear = new ArrayList<>();
+                //series = new PointsGraphSeries<DataPoint>(new DataPoint[]);
+
+
+
                 ReportManager reportManager = new ReportManager();
                 reportManager.getReportsByDate(listReport, startDateString, endDateString, (MapActivity)getContext());
+
+
+                graph.addSeries(series);
+                // customize a little bit viewport
+                series.setDrawDataPoints(true);
+                series.setDataPointsRadius(10);
+
+
             }
         }
     }

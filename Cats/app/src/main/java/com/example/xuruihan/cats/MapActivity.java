@@ -220,11 +220,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
                 // Creating a marker
-                MarkerOptions markerOptions = new MarkerOptions();
+              // MarkerOptions markerOptions = new MarkerOptions();
 
                 // Setting the position for the marker
-                markerOptions.position(latLng);
-
+               //markerOptions.position(latLng);
 
 
                 // Clears the previously touched position
@@ -237,10 +236,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 //markerOptions.snippet(mFacade.getLastReport().getDescription());
 
                 // Animating to the touched position
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+               // mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 
-                // Placing a marker on the touched position
-                mMap.addMarker(markerOptions);
+               //mMap.addMarker(markerOptions);
             }
         });
 
