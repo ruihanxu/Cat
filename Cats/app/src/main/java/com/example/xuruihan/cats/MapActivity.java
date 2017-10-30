@@ -172,7 +172,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             if (startDateSelection && endDateSelection) {
                 ArrayList<Report> listReport = new ArrayList<>();
-                ReportManager reportManager = new ReportManager();
+                ReportManager reportManager = ReportManager.getInstance();
                 reportManager.getReportsByDate(listReport, startDateString, endDateString, (MapActivity)getContext());
             }
         }

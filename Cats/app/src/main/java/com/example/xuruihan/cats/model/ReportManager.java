@@ -23,8 +23,15 @@ import static android.content.ContentValues.TAG;
 
 public class ReportManager {
 
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
     private Query query;
+    private static ReportManager ourInstance = new ReportManager();
+
+    private ReportManager() {}
+
+    public static ReportManager getInstance() {
+        return ourInstance;
+    }
 
     /**
      * Method to get the latest updated report
@@ -34,7 +41,6 @@ public class ReportManager {
      */
     public void getLatestReports(ArrayList<Report> returnArrayList, int amount, LoadingView callback) {
         callback.setUpLoadingView();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
         query = mDatabase.child("Entries").orderByChild("Created Date").limitToLast(amount);
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -71,8 +77,6 @@ public class ReportManager {
      * @param callback the loading view
      */
     public void getReportsByDate(ArrayList<Report> returnArrayList, String startDate, String endDate, MapActivity callback) {
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
         query = mDatabase.child("Entries").orderByChild("Created Date").startAt(startDate).endAt(endDate);
         query.addValueEventListener(new ValueEventListener() {
             @Override
