@@ -112,7 +112,7 @@ public class ReportManager {
     public HashMap<String, String> returnGraphData(String startYear, String endYear, LoadingView callback) {
         ArrayList<Report> arrayList = new ArrayList<>();
         getReportsByDate(arrayList, startYear, endYear, callback);
-
+        callback.setUpLoadingView();
     }
 
 
