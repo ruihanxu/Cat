@@ -25,6 +25,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
+import java.text.NumberFormat;
 
 import java.util.ArrayList;
 
@@ -120,19 +121,21 @@ public class GraphActivity extends AppCompatActivity{
                     xLabels[i] = String.valueOf(i + startYear);
                 }
 
+
+
+
                 staticLabelsFormatter.setHorizontalLabels(xLabels);
+
                 staticLabelsFormatter.setVerticalLabels(new String[] {"low", "middle", "high"});
                 graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-
+                graph.getGridLabelRenderer().setNumHorizontalLabels(xLabels.length);
+                graph.getViewport().setXAxisBoundsManual(true);
+                graph.getViewport().setYAxisBoundsManual(true);
 
                 ArrayList<Report> listReport = new ArrayList<>();
                 ArrayList<Integer> listYear = new ArrayList<>();
                 //series = new PointsGraphSeries<DataPoint>(new DataPoint[]);
 
-
-
-                ReportManager reportManager = new ReportManager();
-                reportManager.getReportsByDate(listReport, startDateString, endDateString, (MapActivity)getContext());
 
 
                 graph.addSeries(series);
