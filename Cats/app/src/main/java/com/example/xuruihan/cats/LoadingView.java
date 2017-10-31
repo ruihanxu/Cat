@@ -14,5 +14,5 @@ public interface LoadingView {
     /**
      * Setter for download view
      */
-    public void setDownLoadingView();
+    public void displayResult(Object object);
 }

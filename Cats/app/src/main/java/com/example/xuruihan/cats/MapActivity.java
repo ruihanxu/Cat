@@ -41,11 +41,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback{//}, com.example.xuruihan.cats.LoadingView {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, LoadingView{//}, com.example.xuruihan.cats.LoadingView {
 
 
     private Button logoutButton;
     private Button reportButton;
+    private Button graphButton;
     private FloatingActionButton newReport;
     private static final String TAG = "MapActivity";
     private DatabaseReference mDatabase;
@@ -104,6 +105,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             startActivity(intent);
         });
 
+        graphButton = (Button) findViewById(R.id.graph_button);
+        graphButton.setOnClickListener((View v1) -> {
+            Intent intent = new Intent(this, GraphActivity.class);
+            startActivity(intent);
+        });
+
         newReport = (FloatingActionButton) findViewById(R.id.new_button);
         newReport.setOnClickListener((View v2) -> {
             Intent intent = new Intent(this, NewReportActivity.class);
@@ -138,6 +145,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         reports = new ArrayList<>();
         reportManager.getReportsByDate(reports, "08/09/2017 12:00:00 AM", "09/09/2017 12:00:00 AM", this);
         */
+    }
+
+    @Override
+    public void setUpLoadingView() {
+
     }
 
     public static class DatePickerFragment extends DialogFragment
@@ -178,8 +190,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-
-    public void displayResult(List<Report> reportList) {
+    @Override
+    public void displayResult(Object object) {
+        List<Report> reportList = (List<Report>) object;
         mMap.clear();
         for (Report report : reportList) {
             if (!report.getLongitude().equals("") && !report.getLatitude().equals("")) {
@@ -213,11 +226,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
                 // Creating a marker
-                MarkerOptions markerOptions = new MarkerOptions();
+              // MarkerOptions markerOptions = new MarkerOptions();
 
                 // Setting the position for the marker
-                markerOptions.position(latLng);
-
+               //markerOptions.position(latLng);
 
 
                 // Clears the previously touched position
@@ -230,10 +242,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 //markerOptions.snippet(mFacade.getLastReport().getDescription());
 
                 // Animating to the touched position
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+               // mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 
-                // Placing a marker on the touched position
-                mMap.addMarker(markerOptions);
+               //mMap.addMarker(markerOptions);
             }
         });
 

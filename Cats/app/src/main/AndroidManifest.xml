@@ -18,6 +18,7 @@
         <activity android:name=".ReportActivity"></activity>
         <activity android:name=".HistoryActivity"></activity>
         <activity android:name=".NewReportActivity"></activity>
+        <activity android:name=".GraphActivity"></activity>
         <activity
             android:name=".StartUpActivity"
             android:label="@string/title_activity_start_up"

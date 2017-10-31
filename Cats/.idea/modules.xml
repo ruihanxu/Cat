@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Cats.iml" filepath="$PROJECT_DIR$/Cats.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GraphView/GraphView.iml" filepath="$PROJECT_DIR$/GraphView/GraphView.iml" />
+      <module fileurl="file://C:\DiskD\newZip\schoolwork\gatech sophomore\cs 2340\M4\Cat\Cats\GraphView\GraphView.iml" filepath="C:\DiskD\newZip\schoolwork\gatech sophomore\cs 2340\M4\Cat\Cats\GraphView\GraphView.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
