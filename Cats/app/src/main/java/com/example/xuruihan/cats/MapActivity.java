@@ -258,6 +258,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         */
 
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
+        mMap.getUiSettings().setZoomControlsEnabled(true);
     }
 
     class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
