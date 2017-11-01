@@ -30,6 +30,7 @@ import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import java.text.NumberFormat;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by Ruixuan on 10/29/17.
@@ -48,6 +49,7 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
 
     private View stubView;
 
+    private Map<String, String> map;
     private static String startDateString;
     private static String endDateString;
     private static InputMethodManager imm;
@@ -108,10 +110,10 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
             String monthString = month < 10 ? "0" + month : "" + month;
             String dayString = day < 10 ? "0" + day : "" + day;
             if (startDateSelected) {
-                startDate.setText(month + "/" + day + "/" + year + " 12:00:00 AM");
+                startDate.setText(year + "/" + month + "/" + day + " 12:00:00 AM");
                 startDateString = monthString + "/" + dayString + "/" + year + " 12:00:00 AM";
             } else {
-                endDate.setText(month + "/" + day + "/" + year + " 12:00:00 AM" );
+                endDate.setText(year + "/" + month + "/" + day + " 12:00:00 AM" );
                 endDateString = monthString + "/" + dayString + "/" + year + " 12:00:00 AM";
             }
 
@@ -138,7 +140,7 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
                 ArrayList<Report> listReport = new ArrayList<>();
                 ArrayList<Integer> listYear = new ArrayList<>();
                 //series = new PointsGraphSeries<DataPoint>(new DataPoint[]);
-                
+
                 graph.addSeries(series);
                 // customize a little bit viewport
                 series.setDrawDataPoints(true);
@@ -155,7 +157,9 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
 
     @Override
     public void displayResult(Object object) {
-        stubView.setVisibility(View.GONE);
-        findViewById(R.id.graph).setVisibility(View.VISIBLE);
+    }
+
+    public void getHashMap(Map<String, String> map) {
+        this.map = map;
     }
 }

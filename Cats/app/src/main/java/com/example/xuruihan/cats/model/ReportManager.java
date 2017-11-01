@@ -1,9 +1,8 @@
 package com.example.xuruihan.cats.model;
 
-import android.app.Activity;
 import android.util.Log;
-import android.view.View;
 
+import com.example.xuruihan.cats.GraphActivity;
 import com.example.xuruihan.cats.LoadingView;
 import com.example.xuruihan.cats.MapActivity;
 import com.google.firebase.database.DataSnapshot;
@@ -59,7 +58,11 @@ public class ReportManager {
                             (String) postSnapshot.child("Incident Address").getValue());
                     returnArrayList.add(report);
                 }
-                callback.setDownLoadingView();
+                if (callback instanceof MapActivity) {
+                    callback.displayResult(returnArrayList);
+                } else {
+                    assignGraphData(returnArrayList, callback);
+                }
             }
 
             @Override
@@ -78,7 +81,7 @@ public class ReportManager {
      * @param endDate the end date
      * @param callback the loading view
      */
-    public void getReportsByDate(ArrayList<Report> returnArrayList, String startDate, String endDate, MapActivity callback) {
+    public void getReportsByDate(ArrayList<Report> returnArrayList, String startDate, String endDate, LoadingView callback) {
         query = mDatabase.child("Entries").orderByChild("Created Date").startAt(startDate).endAt(endDate);
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -96,10 +99,10 @@ public class ReportManager {
                     returnArrayList.add(report);
                     Log.d(TAG, report.getAddress());
                 }
-                if (callback != null) {
+                if (callback instanceof MapActivity) {
                     callback.displayResult(returnArrayList);
                 } else {
-
+                    assignGraphData(returnArrayList, callback);
                 }
             }
 
@@ -118,14 +121,14 @@ public class ReportManager {
         callback.setUpLoadingView();
     }
 
-    public void assignGraphData(ArrayList<Report> returnArrayList) {
+    private void assignGraphData(ArrayList<Report> returnArrayList, LoadingView callback) {
         Map<String, String> returnMap = new HashMap<>();
         for (Report report: returnArrayList) {
             String key = report.getDate().substring(0, 5);
             if (returnMap.get(key) == null) {returnMap.put(key, "1");}
             else {returnMap.put(key, String.valueOf(Integer.parseInt(returnMap.get(key))));}
         }
-        getHashMap(returnMap);
+        ((GraphActivity)callback).getHashMap(returnMap);
     }
 
 
