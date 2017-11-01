@@ -38,6 +38,7 @@ import java.util.Map;
 
 public class GraphActivity extends AppCompatActivity implements LoadingView{
 
+    private static final String TAG = "GraphActivity";
     private static LineGraphSeries<DataPoint> series;
     private static GraphView graph;
     private int lastX = 0;
@@ -53,6 +54,9 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
     private static String startDateString;
     private static String endDateString;
     private static InputMethodManager imm;
+
+    private static ReportManager reportManager;
+    private static GraphActivity graphActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,16 +115,16 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
             String dayString = day < 10 ? "0" + day : "" + day;
             if (startDateSelected) {
                 startDate.setText(year + "/" + month + "/" + day + " 12:00:00 AM");
-                startDateString = monthString + "/" + dayString + "/" + year + " 12:00:00 AM";
+                startDateString = year + "/" + monthString + "/" + dayString + " 12:00:00 AM";
             } else {
                 endDate.setText(year + "/" + month + "/" + day + " 12:00:00 AM" );
-                endDateString = monthString + "/" + dayString + "/" + year + " 12:00:00 AM";
+                endDateString = year + "/" + monthString + "/" + dayString + " 12:00:00 AM";
             }
 
             if (startDateSelection && endDateSelection) {
                 StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-                int startYear = Integer.parseInt(startDateString.substring(6,10));
-                int endYear = Integer.parseInt(endDateString.substring(6,10));
+                int startYear = Integer.parseInt(startDateString.substring(0, 4));
+                int endYear = Integer.parseInt(endDateString.substring(0, 4));
                 String[] xLabels = new String[endYear - startYear];
                 for (int i = 0; i < xLabels.length; i++) {
                     xLabels[i] = String.valueOf(i + startYear);
@@ -137,9 +141,8 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
                 graph.getViewport().setXAxisBoundsManual(true);
                 graph.getViewport().setYAxisBoundsManual(true);
 
-                ArrayList<Report> listReport = new ArrayList<>();
-                ArrayList<Integer> listYear = new ArrayList<>();
-                //series = new PointsGraphSeries<DataPoint>(new DataPoint[]);
+                reportManager = ReportManager.getInstance();
+                reportManager.requestGraphData(startDateString.substring(0,4 ), endDateString.substring(0, 4), (GraphActivity) getActivity());
 
                 graph.addSeries(series);
                 // customize a little bit viewport
@@ -161,5 +164,7 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
 
     public void getHashMap(Map<String, String> map) {
         this.map = map;
+        Log.d(TAG, String.valueOf((map == null)));
     }
+
 }

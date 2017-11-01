@@ -8,8 +8,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.xuruihan.cats.model.Report;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +37,9 @@ public class NewReportActivity extends AppCompatActivity {
 
     private static final String TAG = "NewReportActivity";
 
+    private int PLACE_PICKER_REQUEST = 1;
+    private Place latlng;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,34 +60,13 @@ public class NewReportActivity extends AppCompatActivity {
 
         uploadButton = (Button) findViewById(R.id.upload_button);
         uploadButton.setOnClickListener((View v) -> {
-            Intent intent = new Intent(this, MapActivity.class);
-
-            //give HistoryActivity a boolean that a new item is on the list
-            //Intent intent1 = new Intent(this, HistoryActivity.class);
-            //intent.putExtra("isAdded", intent1);
-
-            //get user input to a new Report object
-
-            setUpReport();
-            //update currentID for the next key
-            currentID++;
-
-            intent.putExtra("Report",report);
-            //update IDcounter for the next key
-            mDatabase.child("IDcounter").child("counter").setValue(currentID);
-
-
-            //upload data
-            mDatabase.child("Entries").child(""+currentID).child("Created Date").setValue(report.getDate());
-            mDatabase.child("Entries").child(""+currentID).child("Borough").setValue(report.getBorough());
-            mDatabase.child("Entries").child(""+currentID).child("City").setValue("NEW YORK");
-            mDatabase.child("Entries").child(""+currentID).child("Incident Address").setValue(report.getAddress());
-            mDatabase.child("Entries").child(""+currentID).child("Incident Zip").setValue(report.getZip());
-            mDatabase.child("Entries").child(""+currentID).child("Location Type").setValue(report.getLocationType());
-
-            HistoryActivity.keys.add(currentID);
-
-            startActivity(intent);
+            Log.e(TAG, "hahahahaha");
+            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+            try {
+                startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+            } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+                e.printStackTrace();
+            }
         });
 
         cancelButton = (Button) findViewById(R.id.cancel_button);
@@ -87,6 +75,43 @@ public class NewReportActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                latlng = PlacePicker.getPlace(this, data);
+                Intent intent = new Intent(this, MapActivity.class);
+
+                //give HistoryActivity a boolean that a new item is on the list
+                //Intent intent1 = new Intent(this, HistoryActivity.class);
+                //intent.putExtra("isAdded", intent1);
+
+                //get user input to a new Report object
+
+                setUpReport();
+                //update currentID for the next key
+                currentID++;
+
+                intent.putExtra("Report",report);
+                //update IDcounter for the next key
+                mDatabase.child("IDcounter").child("counter").setValue(currentID);
+
+
+                //upload data
+                mDatabase.child("Entries").child(""+currentID).child("Created Date").setValue(report.getDate());
+                mDatabase.child("Entries").child(""+currentID).child("Borough").setValue(report.getBorough());
+                mDatabase.child("Entries").child(""+currentID).child("City").setValue("NEW YORK");
+                mDatabase.child("Entries").child(""+currentID).child("Incident Address").setValue(report.getAddress());
+                mDatabase.child("Entries").child(""+currentID).child("Incident Zip").setValue(report.getZip());
+                mDatabase.child("Entries").child(""+currentID).child("Location Type").setValue(report.getLocationType());
+
+                HistoryActivity.keys.add(currentID);
+
+                startActivity(intent);
+
+            }
+        }
     }
 
     /**
@@ -101,7 +126,8 @@ public class NewReportActivity extends AppCompatActivity {
                 ((EditText)findViewById(R.id.zipInput)).getText().toString(),
                 "NEW YORK",//city
                 ((EditText)findViewById(R.id.boroughInput)).getText().toString(),
-                null, null,// longitude, latitude
+                String.valueOf(latlng.getLatLng().longitude),
+                String.valueOf(latlng.getLatLng().latitude),// longitude, latitude
                 ((EditText)findViewById(R.id.addressInput)).getText().toString()
         );
         return report;

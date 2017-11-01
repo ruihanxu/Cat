@@ -147,11 +147,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         */
     }
 
-    @Override
-    public void setUpLoadingView() {
-
-    }
-
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
@@ -176,10 +171,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             String dayString = day < 10 ? "0" + day : "" + day;
             if (startDateSelected) {
                 startDate.setText(month + "/" + day + "/" + year + " 12:00:00 AM");
-                startDateString = monthString + "/" + dayString + "/" + year + " 12:00:00 AM";
+                startDateString = year + "/" + monthString + "/" + dayString + " 12:00:00 AM";
             } else {
                 endDate.setText(month + "/" + day + "/" + year + " 12:00:00 AM" );
-                endDateString = monthString + "/" + dayString + "/" + year + " 12:00:00 AM";
+                endDateString = year + "/" + monthString + "/" + dayString + " 12:00:00 AM";
             }
 
             if (startDateSelection && endDateSelection) {
@@ -289,12 +284,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
 
-    /*
     @Override
     public void setUpLoadingView() {
-        stubView = ((ViewStubCompat) findViewById(R.id.viewstub_loading)).inflate();
+        //stubView = ((ViewStubCompat) findViewById(R.id.viewstub_loading)).inflate();
     }
-
+/*
     @Override
     public void setDownLoadingView() {
         stubView.setVisibility(View.GONE);

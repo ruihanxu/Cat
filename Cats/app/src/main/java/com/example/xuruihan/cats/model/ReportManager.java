@@ -97,7 +97,7 @@ public class ReportManager {
                             (String) postSnapshot.child("Latitude").getValue(),
                             (String) postSnapshot.child("Incident Address").getValue());
                     returnArrayList.add(report);
-                    Log.d(TAG, report.getAddress());
+//                    Log.d(TAG, report.getAddress());
                 }
                 if (callback instanceof MapActivity) {
                     callback.displayResult(returnArrayList);

@@ -175,7 +175,7 @@ public class HistoryActivity extends AppCompatActivity implements LoadingView{
     }
 
     @Override
-    public void setDownLoadingView() {
+    public void displayResult(Object object) {
 
     }
 }
