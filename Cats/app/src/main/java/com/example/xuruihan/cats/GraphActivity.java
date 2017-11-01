@@ -12,6 +12,7 @@ import android.icu.util.Calendar;
 import android.support.v7.widget.ViewStubCompat;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -148,12 +149,12 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
     }
     @Override
     public void setUpLoadingView() {
-        stubView = ((ViewStubCompat) findViewById(R.id.viewstub_loading)).inflate();
+        stubView = ((ViewStub) findViewById(R.id.viewstub_loading)).inflate();
     }
 
     @Override
-    public void setDownLoadingView() {
+    public void displayResult(Object object) {
         stubView.setVisibility(View.GONE);
-        findViewById(R.id.main_panel).setVisibility(View.VISIBLE);
+        findViewById(R.id.graph).setVisibility(View.VISIBLE);
     }
 }

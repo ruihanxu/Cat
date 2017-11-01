@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
@@ -97,6 +98,8 @@ public class ReportManager {
                 }
                 if (callback != null) {
                     callback.displayResult(returnArrayList);
+                } else {
+
                 }
             }
 
@@ -109,10 +112,20 @@ public class ReportManager {
         });
     }
 
-    public HashMap<String, String> returnGraphData(String startYear, String endYear, LoadingView callback) {
+    public void requestGraphData(String startYear, String endYear, LoadingView callback) {
         ArrayList<Report> arrayList = new ArrayList<>();
-        getReportsByDate(arrayList, startYear, endYear, callback);
+        getReportsByDate(arrayList, startYear, endYear, null);
         callback.setUpLoadingView();
+    }
+
+    public void assignGraphData(ArrayList<Report> returnArrayList) {
+        Map<String, String> returnMap = new HashMap<>();
+        for (Report report: returnArrayList) {
+            String key = report.getDate().substring(0, 5);
+            if (returnMap.get(key) == null) {returnMap.put(key, "1");}
+            else {returnMap.put(key, String.valueOf(Integer.parseInt(returnMap.get(key))));}
+        }
+        getHashMap(returnMap);
     }
 
 
