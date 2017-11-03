@@ -30,6 +30,7 @@ import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import java.text.NumberFormat;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -49,7 +50,7 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
 
     private View stubView;
 
-    private Map<String, String> map;
+    private static Map<String, String> map;
     private static String startDateString;
     private static String endDateString;
     private static InputMethodManager imm;
@@ -59,11 +60,10 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
         // we get graph view instance
-       graph = (GraphView) findViewById(R.id.graph);
+        graph = (GraphView) findViewById(R.id.graph);
 
         graph.getGridLabelRenderer().setHorizontalAxisTitle("Year");
         graph.getGridLabelRenderer().setVerticalAxisTitle("Rat Sightings");
-
 
         startDate = (EditText) findViewById(R.id.gstartDate);
         startDate.setOnClickListener((View v) -> {
@@ -83,6 +83,11 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
 
 
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+    }
+
+    public void getHashMap(Map<String, String> map) {
+        this.map = map;
+        //System.out.println("reached here!");
     }
 
     public static class DatePickerFragment extends DialogFragment
@@ -111,45 +116,53 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
             String dayString = day < 10 ? "0" + day : "" + day;
             if (startDateSelected) {
                 startDate.setText(year + "/" + month + "/" + day + " 12:00:00 AM");
-                startDateString = monthString + "/" + dayString + "/" + year + " 12:00:00 AM";
+                startDateString = year + "/" + monthString + "/" + dayString + " 12:00:00 AM";
             } else {
                 endDate.setText(year + "/" + month + "/" + day + " 12:00:00 AM" );
-                endDateString = monthString + "/" + dayString + "/" + year + " 12:00:00 AM";
+                endDateString = year + "/" + monthString + "/" + dayString + " 12:00:00 AM";
             }
 
             if (startDateSelection && endDateSelection) {
-                StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-                int startYear = Integer.parseInt(startDateString.substring(6,10));
-                int endYear = Integer.parseInt(endDateString.substring(6,10));
-                String[] xLabels = new String[endYear - startYear];
-                for (int i = 0; i < xLabels.length; i++) {
-                    xLabels[i] = String.valueOf(i + startYear);
-                }
-
-
-
-
-                staticLabelsFormatter.setHorizontalLabels(xLabels);
-
-                staticLabelsFormatter.setVerticalLabels(new String[] {"low", "middle", "high"});
-                graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-                graph.getGridLabelRenderer().setNumHorizontalLabels(xLabels.length);
-                graph.getViewport().setXAxisBoundsManual(true);
-                graph.getViewport().setYAxisBoundsManual(true);
 
                 ArrayList<Report> listReport = new ArrayList<>();
-                ArrayList<Integer> listYear = new ArrayList<>();
-                //series = new PointsGraphSeries<DataPoint>(new DataPoint[]);
+                ReportManager reportManager = ReportManager.getInstance();
+                reportManager.requestGraphData(startDateString.substring(0, 4), endDateString.substring(0, 4), (GraphActivity)getContext());
+                reportManager.getReportsByDate(listReport, startDateString, endDateString, (GraphActivity)getContext());
+                String yAxis[] = new String[map.keySet().size()];
+                map.keySet().toArray(yAxis);
+                String xAxis[] = new String[map.values().size()];
+                map.values().toArray(xAxis);
+
+                //graph.getGridLabelRenderer().setNumHorizontalLabels(listYear.length);
+
+                DataPoint datas[] = new DataPoint[yAxis.length];
+                for (int i = 0; i < datas.length; i++) {
+                    datas[i] = new DataPoint(Integer.parseInt(xAxis[i]), Integer.parseInt(yAxis[i]));
+                }
+                series = new LineGraphSeries<>(datas);
 
                 graph.addSeries(series);
-                // customize a little bit viewport
                 series.setDrawDataPoints(true);
                 series.setDataPointsRadius(10);
 
+                // set manual X bounds
+                StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
+                staticLabelsFormatter.setHorizontalLabels(xAxis);
+                graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+
+                // set manual Y bounds
+                staticLabelsFormatter.setVerticalLabels(yAxis);
+                graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+
+                graph.getViewport().setXAxisBoundsManual(true);
+                graph.getViewport().setYAxisBoundsManual(true);
+
+                graph.getViewport().setScrollable(true);
 
             }
         }
     }
+
     @Override
     public void setUpLoadingView() {
         stubView = ((ViewStub) findViewById(R.id.viewstub_loading)).inflate();
@@ -157,9 +170,8 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
 
     @Override
     public void displayResult(Object object) {
+
     }
 
-    public void getHashMap(Map<String, String> map) {
-        this.map = map;
-    }
+
 }

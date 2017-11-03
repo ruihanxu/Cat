@@ -176,16 +176,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             String dayString = day < 10 ? "0" + day : "" + day;
             if (startDateSelected) {
                 startDate.setText(month + "/" + day + "/" + year + " 12:00:00 AM");
-                startDateString = monthString + "/" + dayString + "/" + year + " 12:00:00 AM";
+                startDateString = year + "/" + monthString + "/" + dayString + " 12:00:00 AM";
             } else {
                 endDate.setText(month + "/" + day + "/" + year + " 12:00:00 AM" );
-                endDateString = monthString + "/" + dayString + "/" + year + " 12:00:00 AM";
+                endDateString = year + "/" + monthString + "/" + dayString + " 12:00:00 AM";
             }
 
             if (startDateSelection && endDateSelection) {
                 ArrayList<Report> listReport = new ArrayList<>();
                 ReportManager reportManager = ReportManager.getInstance();
                 reportManager.getReportsByDate(listReport, startDateString, endDateString, (MapActivity)getContext());
+                //Log.d("Reports", listReport.toString());//listReport);
             }
         }
     }
@@ -201,7 +202,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 markerOptions.position(latLng);
                 markerOptions.title(String.valueOf(report.getKey()));
                 markerOptions.snippet(report.getDescription());
-
 
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 

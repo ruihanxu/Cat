@@ -124,7 +124,7 @@ public class ReportManager {
     private void assignGraphData(ArrayList<Report> returnArrayList, LoadingView callback) {
         Map<String, String> returnMap = new HashMap<>();
         for (Report report: returnArrayList) {
-            String key = report.getDate().substring(0, 5);
+            String key = report.getDate().substring(0, 4);
             if (returnMap.get(key) == null) {returnMap.put(key, "1");}
             else {returnMap.put(key, String.valueOf(Integer.parseInt(returnMap.get(key))));}
         }
