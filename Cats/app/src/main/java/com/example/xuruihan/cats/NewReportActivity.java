@@ -60,13 +60,42 @@ public class NewReportActivity extends AppCompatActivity {
 
         uploadButton = (Button) findViewById(R.id.upload_button);
         uploadButton.setOnClickListener((View v) -> {
-            Log.e(TAG, "hahahahaha");
-            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-            try {
-                startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
-            } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
-                e.printStackTrace();
-            }
+//            Log.e(TAG, "hahahahaha");
+//            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+//            try {
+//                startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+//            } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+//                e.printStackTrace();
+//            }
+            Intent intent = new Intent(this, MapActivity.class);
+
+            //give HistoryActivity a boolean that a new item is on the list
+            //Intent intent1 = new Intent(this, HistoryActivity.class);
+            //intent.putExtra("isAdded", intent1);
+
+            //get user input to a new Report object
+
+            setUpReport();
+            //update currentID for the next key
+            currentID++;
+
+            intent.putExtra("Report",report);
+            //update IDcounter for the next key
+            mDatabase.child("IDcounter").child("counter").setValue(currentID);
+
+
+            //upload data
+            mDatabase.child("Entries").child(""+currentID).child("Created Date").setValue(report.getDate());
+            mDatabase.child("Entries").child(""+currentID).child("Borough").setValue(report.getBorough());
+            mDatabase.child("Entries").child(""+currentID).child("City").setValue("NEW YORK");
+            mDatabase.child("Entries").child(""+currentID).child("Incident Address").setValue(report.getAddress());
+            mDatabase.child("Entries").child(""+currentID).child("Incident Zip").setValue(report.getZip());
+            mDatabase.child("Entries").child(""+currentID).child("Location Type").setValue(report.getLocationType());
+
+            HistoryActivity.keys.add(currentID);
+
+            startActivity(intent);
+
         });
 
         cancelButton = (Button) findViewById(R.id.cancel_button);
@@ -77,42 +106,13 @@ public class NewReportActivity extends AppCompatActivity {
 
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PLACE_PICKER_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                latlng = PlacePicker.getPlace(this, data);
-                Intent intent = new Intent(this, MapActivity.class);
-
-                //give HistoryActivity a boolean that a new item is on the list
-                //Intent intent1 = new Intent(this, HistoryActivity.class);
-                //intent.putExtra("isAdded", intent1);
-
-                //get user input to a new Report object
-
-                setUpReport();
-                //update currentID for the next key
-                currentID++;
-
-                intent.putExtra("Report",report);
-                //update IDcounter for the next key
-                mDatabase.child("IDcounter").child("counter").setValue(currentID);
-
-
-                //upload data
-                mDatabase.child("Entries").child(""+currentID).child("Created Date").setValue(report.getDate());
-                mDatabase.child("Entries").child(""+currentID).child("Borough").setValue(report.getBorough());
-                mDatabase.child("Entries").child(""+currentID).child("City").setValue("NEW YORK");
-                mDatabase.child("Entries").child(""+currentID).child("Incident Address").setValue(report.getAddress());
-                mDatabase.child("Entries").child(""+currentID).child("Incident Zip").setValue(report.getZip());
-                mDatabase.child("Entries").child(""+currentID).child("Location Type").setValue(report.getLocationType());
-
-                HistoryActivity.keys.add(currentID);
-
-                startActivity(intent);
-
-            }
-        }
-    }
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == PLACE_PICKER_REQUEST) {
+//            if (resultCode == RESULT_OK) {
+//                latlng = PlacePicker.getPlace(this, data);
+//            }
+//        }
+//    }
 
     /**
      * Get user's input to new a Report object for up loading

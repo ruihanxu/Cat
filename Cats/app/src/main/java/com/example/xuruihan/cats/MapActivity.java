@@ -181,6 +181,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 ArrayList<Report> listReport = new ArrayList<>();
                 ReportManager reportManager = ReportManager.getInstance();
                 reportManager.getReportsByDate(listReport, startDateString, endDateString, (MapActivity)getContext());
+                //Log.d("Reports", listReport.toString());//listReport);
             }
         }
     }
@@ -196,7 +197,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 markerOptions.position(latLng);
                 markerOptions.title(String.valueOf(report.getKey()));
                 markerOptions.snippet(report.getDescription());
-
 
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 

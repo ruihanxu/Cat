@@ -178,4 +178,6 @@ public class HistoryActivity extends AppCompatActivity implements LoadingView{
     public void displayResult(Object object) {
 
     }
+
+
 }
