@@ -49,8 +49,7 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
     private static boolean startDateSelected;
 
     private View stubView;
-
-    private static Map<String, String> map;
+    
     private static String startDateString;
     private static String endDateString;
     private static InputMethodManager imm;
@@ -85,10 +84,6 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
-    public void getHashMap(Map<String, String> map) {
-        this.map = map;
-        //System.out.println("reached here!");
-    }
 
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
@@ -128,39 +123,46 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
                 ReportManager reportManager = ReportManager.getInstance();
                 reportManager.requestGraphData(startDateString.substring(0, 4), endDateString.substring(0, 4), (GraphActivity)getContext());
                 reportManager.getReportsByDate(listReport, startDateString, endDateString, (GraphActivity)getContext());
-                String yAxis[] = new String[map.keySet().size()];
-                map.keySet().toArray(yAxis);
-                String xAxis[] = new String[map.values().size()];
-                map.values().toArray(xAxis);
 
-                //graph.getGridLabelRenderer().setNumHorizontalLabels(listYear.length);
 
-                DataPoint datas[] = new DataPoint[yAxis.length];
-                for (int i = 0; i < datas.length; i++) {
-                    datas[i] = new DataPoint(Integer.parseInt(xAxis[i]), Integer.parseInt(yAxis[i]));
-                }
-                series = new LineGraphSeries<>(datas);
 
-                graph.addSeries(series);
-                series.setDrawDataPoints(true);
-                series.setDataPointsRadius(10);
-
-                // set manual X bounds
-                StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-                staticLabelsFormatter.setHorizontalLabels(xAxis);
-                graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-
-                // set manual Y bounds
-                staticLabelsFormatter.setVerticalLabels(yAxis);
-                graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-
-                graph.getViewport().setXAxisBoundsManual(true);
-                graph.getViewport().setYAxisBoundsManual(true);
-
-                graph.getViewport().setScrollable(true);
 
             }
         }
+    }
+
+    public void getHashMap(Map<String, String> map) {
+
+        String yAxis[] = new String[map.keySet().size()];
+        map.keySet().toArray(yAxis);
+        String xAxis[] = new String[map.values().size()];
+        map.values().toArray(xAxis);
+
+        //graph.getGridLabelRenderer().setNumHorizontalLabels(listYear.length);
+
+        DataPoint datas[] = new DataPoint[yAxis.length];
+        for (int i = 0; i < datas.length; i++) {
+            datas[i] = new DataPoint(Integer.parseInt(xAxis[i]), Integer.parseInt(yAxis[i]));
+        }
+        series = new LineGraphSeries<>(datas);
+
+        graph.addSeries(series);
+        series.setDrawDataPoints(true);
+        series.setDataPointsRadius(10);
+
+        // set manual X bounds
+        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
+        staticLabelsFormatter.setHorizontalLabels(xAxis);
+        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+
+        // set manual Y bounds
+        staticLabelsFormatter.setVerticalLabels(yAxis);
+        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setYAxisBoundsManual(true);
+
+        graph.getViewport().setScrollable(true);
     }
 
     @Override
