@@ -90,6 +90,7 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
     }
 
     public void getHashMap(Map<String, String> map) {
+        Log.e(TAG, String.valueOf(map == null));
         this.map = map;
         //System.out.println("reached here!");
     }
@@ -161,18 +162,7 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
                 graph.getViewport().setXAxisBoundsManual(true);
                 graph.getViewport().setYAxisBoundsManual(true);
 
-<<<<<<< HEAD
-                reportManager = ReportManager.getInstance();
-                reportManager.requestGraphData(startDateString.substring(0,4 ), endDateString.substring(0, 4), (GraphActivity) getActivity());
 
-                graph.addSeries(series);
-                // customize a little bit viewport
-                series.setDrawDataPoints(true);
-                series.setDataPointsRadius(10);
-
-=======
-                graph.getViewport().setScrollable(true);
->>>>>>> 17f102ef762fcdbd476356015895f5a3d14b7048
 
             }
         }
@@ -185,16 +175,6 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
 
     @Override
     public void displayResult(Object object) {
-
-<<<<<<< HEAD
-    public void getHashMap(Map<String, String> map) {
-        this.map = map;
-        Log.d(TAG, String.valueOf((map == null)));
     }
 
-=======
-    }
-
-
->>>>>>> 17f102ef762fcdbd476356015895f5a3d14b7048
 }
