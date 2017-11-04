@@ -38,8 +38,12 @@ public class ReportManager {
      * @param returnArrayList the updated arraylist of reports
      * @param amount limit to the last updated report
      * @param callback the loading view
+     * @throws IllegalArgumentException if returnArrayList is null or amount is smaller than zero
      */
     public void getLatestReports(ArrayList<Report> returnArrayList, int amount, LoadingView callback) {
+        if (returnArrayList == null || amount < 0) {
+            throw new IllegalArgumentException("enter valid args");
+        }
         callback.setUpLoadingView();
         query = mDatabase.child("Entries").orderByChild("Created Date").limitToLast(amount);
         query.addValueEventListener(new ValueEventListener() {
