@@ -137,10 +137,15 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
 
     public void getHashMap(Map<String, String> map) {
 
-        String yAxis[] = new String[map.keySet().size()];
-        map.keySet().toArray(yAxis);
-        String xAxis[] = new String[map.values().size()];
-        map.values().toArray(xAxis);
+        String xAxis[] = new String[map.keySet().size()];
+        xAxis = map.keySet().toArray(xAxis);
+
+//        String yAxis[] = new String[map.values().size()];
+//        yAxis = map.values().toArray(yAxis);
+        String yAxis[] = new String[map.values().size()];
+        for (int i = 0; i < xAxis.length; i++) {
+            yAxis[i] = map.get(xAxis[i]);
+        }
 
         DataPoint datas[] = new DataPoint[yAxis.length];
         for (int i = 0; i < datas.length; i++) {
