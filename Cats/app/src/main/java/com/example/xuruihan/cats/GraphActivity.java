@@ -28,9 +28,11 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
+import com.jjoe64.graphview.GridLabelRenderer;
 import java.text.NumberFormat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -137,11 +139,8 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
 
     public void getHashMap(Map<String, String> map) {
 
-        String xAxis[] = new String[map.keySet().size()];
-        xAxis = map.keySet().toArray(xAxis);
-
-//        String yAxis[] = new String[map.values().size()];
-//        yAxis = map.values().toArray(yAxis);
+        String[] xAxis = map.keySet().toArray(new String[map.size()]);
+        Arrays.sort(xAxis);
         String yAxis[] = new String[map.values().size()];
         for (int i = 0; i < xAxis.length; i++) {
             yAxis[i] = map.get(xAxis[i]);
@@ -165,6 +164,7 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
         // set manual Y bounds
         staticLabelsFormatter.setVerticalLabels(yAxis);
         graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+
 
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setYAxisBoundsManual(true);
