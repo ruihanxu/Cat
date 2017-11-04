@@ -102,6 +102,7 @@ public class ReportManager {
                 if (callback instanceof MapActivity) {
                     callback.displayResult(returnArrayList);
                 } else {
+                    Log.d(TAG, "haha");
                     assignGraphData(returnArrayList, callback);
                 }
             }
@@ -117,7 +118,7 @@ public class ReportManager {
 
     public void requestGraphData(String startYear, String endYear, LoadingView callback) {
         ArrayList<Report> arrayList = new ArrayList<>();
-        getReportsByDate(arrayList, startYear, endYear, null);
+        getReportsByDate(arrayList, startYear, endYear, callback);
         callback.setUpLoadingView();
     }
 
