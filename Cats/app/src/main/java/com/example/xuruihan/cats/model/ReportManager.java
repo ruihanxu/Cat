@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.content.ContentValues.TAG;
-
 /**
  * Created by Ruixuan on 10/7/17.
  */
@@ -27,6 +25,7 @@ public class ReportManager {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
     private Query query;
     private static ReportManager ourInstance = new ReportManager();
+    private final String TAG = "ReportManager";
 
     private ReportManager() {}
 
@@ -97,7 +96,7 @@ public class ReportManager {
                             (String) postSnapshot.child("Latitude").getValue(),
                             (String) postSnapshot.child("Incident Address").getValue());
                     returnArrayList.add(report);
-//                    Log.d(TAG, report.getAddress());
+                    Log.d(TAG, report.getDate());
                 }
                 if (callback instanceof MapActivity) {
                     callback.displayResult(returnArrayList);
@@ -127,7 +126,7 @@ public class ReportManager {
         for (Report report: returnArrayList) {
             String key = report.getDate().substring(0, 4);
             if (returnMap.get(key) == null) {returnMap.put(key, "1");}
-            else {returnMap.put(key, String.valueOf(Integer.parseInt(returnMap.get(key))));}
+            else {returnMap.put(key, String.valueOf(Integer.parseInt(returnMap.get(key)) + 1));}
         }
         ((GraphActivity)callback).getHashMap(returnMap);
     }
