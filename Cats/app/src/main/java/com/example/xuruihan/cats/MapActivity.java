@@ -2,7 +2,6 @@ package com.example.xuruihan.cats;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.icu.util.Calendar;
@@ -10,8 +9,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ViewStubCompat;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -19,8 +16,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
-
 import com.example.xuruihan.cats.model.Report;
 import com.example.xuruihan.cats.model.ReportManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -39,7 +34,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, LoadingView{//}, com.example.xuruihan.cats.LoadingView {
 
@@ -162,6 +156,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
+
+        /**
+         * Processing date data from the calender
+         * @param view the date picker view
+         * @param year the year of the graph range
+         * @param month the month of the graph range
+         * @param day the day of the graph range
+         */
         public void onDateSet(DatePicker view, int year, int month, int day) {
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             Log.d("DEBUG DATE",view.toString());
@@ -218,39 +220,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onMapClick(LatLng latLng) {
 
-
-
-                // Creating a marker
-              // MarkerOptions markerOptions = new MarkerOptions();
-
-                // Setting the position for the marker
-               //markerOptions.position(latLng);
-
-
-                // Clears the previously touched position
-                // mMap.clear();
-                //mFacade.addReport("newly added", "Bobs Place", new Location(latLng.latitude, latLng.longitude));
-
-                // Setting the title for the marker.
-                // This will be displayed on taping the marker
-                //markerOptions.title(mFacade.getLastReport().getName());
-                //markerOptions.snippet(mFacade.getLastReport().getDescription());
-
-                // Animating to the touched position
-               // mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-
-               //mMap.addMarker(markerOptions);
             }
         });
 
-        /*
-        List<Report> reportList = mFacade.getReports();
-        for (Report r : reportList) {
-            LatLng loc = new LatLng(r.getLatitude(), r.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(loc).title(r.getName()).snippet(r.getDescription()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-        }
-        */
 
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
         mMap.getUiSettings().setZoomControlsEnabled(true);
@@ -288,13 +260,5 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void setUpLoadingView() {
         //stubView = ((ViewStubCompat) findViewById(R.id.viewstub_loading)).inflate();
     }
-/*
-    @Override
-    public void setDownLoadingView() {
-        stubView.setVisibility(View.GONE);
-        findViewById(R.id.main_panel).setVisibility(View.VISIBLE);
-        if (reports.size() != 0) {Log.d(TAG, reports.get(0).getAddress());}
-        else {Log.d(TAG, "hehe");}
-    }
-    */
+
 }

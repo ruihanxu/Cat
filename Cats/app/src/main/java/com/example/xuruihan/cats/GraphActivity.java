@@ -1,5 +1,4 @@
 package com.example.xuruihan.cats;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Build;
@@ -8,32 +7,22 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Context;
-import android.content.Intent;
 import android.icu.util.Calendar;
-import android.support.v7.widget.ViewStubCompat;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewStub;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.example.xuruihan.cats.model.Report;
 import com.example.xuruihan.cats.model.ReportManager;
-import com.google.firebase.database.DatabaseReference;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.DefaultLabelFormatter;
-import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
-import com.jjoe64.graphview.GridLabelRenderer;
-import java.text.NumberFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -45,7 +34,6 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
     private static final String TAG = "GraphActivity";
     private static LineGraphSeries<DataPoint> series;
     private static GraphView graph;
-    private int lastX = 0;
     private static EditText startDate;
     private static EditText endDate;
     private static boolean startDateSelection;
@@ -58,15 +46,12 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
     private static String endDateString;
     private static InputMethodManager imm;
 
-    private static ReportManager reportManager;
-    private static GraphActivity graphActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
         // we get graph view instance
-        graphActivity = this;
         graph = (GraphView) findViewById(R.id.graph);
 
         graph.getGridLabelRenderer().setHorizontalAxisTitle("Year");
@@ -92,6 +77,9 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
+    /**
+     * Date Picker for users to choose date range of graph display
+     */
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
@@ -104,11 +92,18 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
 
-            // Create a new instance of DatePickerDialog and return it
+            //Create a new instance of DatePickerDialog and return it
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
 
+        /**
+         * Processing date data from the calender
+         * @param view the date picker view
+         * @param year the year of the graph range
+         * @param month the month of the graph range
+         * @param day the day of the graph range
+         */
         public void onDateSet(DatePicker view, int year, int month, int day) {
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             Log.d("DEBUG DATE",view.toString());
@@ -130,14 +125,16 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
                 ReportManager reportManager = ReportManager.getInstance();
                 Log.e(TAG, "First test: " + String.valueOf(getActivity() == null));
                 reportManager.requestGraphData(startDateString.substring(0, 4), endDateString.substring(0, 4), (GraphActivity)getActivity());
-//                reportManager.getReportsByDate(listReport, startDateString, endDateString, (GraphActivity)getActivity());
 
             }
         }
     }
 
 
-
+    /**
+     * Graph Display based on the hashmap passed by the report manager
+     * @param map the map to get data from
+     */
     public void getHashMap(Map<String, String> map) {
 
         String[] xAxis = map.keySet().toArray(new String[map.size()]);
@@ -174,13 +171,11 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
         graph.getViewport().setYAxisBoundsManual(true);
 
         graph.getViewport().setScrollable(true);
-//        findViewById(R.id.viewstub_loading).setVisibility(View.GONE);
         findViewById(R.id.graph).setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setUpLoadingView() {
-//        stubView = ((ViewStub) findViewById(R.id.viewstub_loading)).inflate();
     }
 
     @Override
