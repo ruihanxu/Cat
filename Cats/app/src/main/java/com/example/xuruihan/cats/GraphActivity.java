@@ -137,10 +137,12 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
     }
 
 
+
     public void getHashMap(Map<String, String> map) {
 
         String[] xAxis = map.keySet().toArray(new String[map.size()]);
         Arrays.sort(xAxis);
+
         String yAxis[] = new String[map.values().size()];
         for (int i = 0; i < xAxis.length; i++) {
             yAxis[i] = map.get(xAxis[i]);
@@ -150,6 +152,8 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
         for (int i = 0; i < datas.length; i++) {
             datas[i] = new DataPoint(Integer.parseInt(xAxis[i]), Integer.parseInt(yAxis[i]));
         }
+
+
         series = new LineGraphSeries<>(datas);
 
         graph.addSeries(series);

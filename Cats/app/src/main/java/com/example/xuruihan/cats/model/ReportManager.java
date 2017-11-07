@@ -125,7 +125,7 @@ public class ReportManager {
         callback.setUpLoadingView();
     }
 
-    private void assignGraphData(ArrayList<Report> returnArrayList, LoadingView callback) {
+    public Map<String, String> assignGraphData(ArrayList<Report> returnArrayList, LoadingView callback) {
         Map<String, String> returnMap = new HashMap<>();
         for (Report report: returnArrayList) {
             String key = report.getDate().substring(0, 4);
@@ -133,7 +133,10 @@ public class ReportManager {
             else {returnMap.put(key, String.valueOf(Integer.parseInt(returnMap.get(key)) + 1));}
         }
         ((GraphActivity)callback).getHashMap(returnMap);
+        return returnMap;
     }
+
+
 
 
 //
