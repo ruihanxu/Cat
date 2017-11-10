@@ -60,7 +60,7 @@ public class NewReportActivity extends AppCompatActivity {
 
         uploadButton = (Button) findViewById(R.id.upload_button);
         uploadButton.setOnClickListener((View v) -> {
-//            Log.e(TAG, "hahahahaha");
+//            Log.e(TAG, 1);
 //            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 //            try {
 //                startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
