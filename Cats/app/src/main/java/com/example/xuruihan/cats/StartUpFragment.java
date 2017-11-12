@@ -1,7 +1,6 @@
 package com.example.xuruihan.cats;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +16,7 @@ import android.widget.TextView;
  */
 public class StartUpFragment extends Fragment {
 
+    @Nullable
     private OnStartUpFragmentInteractionListener startUpListener;
     private Button loginButton;
     private Button signUpButton;
@@ -44,10 +43,12 @@ public class StartUpFragment extends Fragment {
         signUpButton = (Button) getActivity().findViewById(R.id.sign_up_button);
 
         loginButton.setOnClickListener((View v) -> {
+            assert startUpListener != null;
             startUpListener.goToLogin();
         });
 
         signUpButton.setOnClickListener((View v) -> {
+            assert startUpListener != null;
             startUpListener.goToSignup();
         });
 

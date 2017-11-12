@@ -2,6 +2,7 @@ package com.example.xuruihan.cats;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -65,7 +66,7 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
             dialogFragment.show(getSupportFragmentManager(), "datePicker");
         });
 
-        endDate = (EditText) findViewById(R.id.gendDate);
+        endDate = (EditText) findViewById(R.id.graphEndDate);
         endDate.setOnClickListener((View v) -> {
             endDateSelection = true;
             startDateSelected = false;
@@ -83,6 +84,7 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
+        @NonNull
         @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -104,6 +106,7 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
          * @param month the month of the graph range
          * @param day the day of the graph range
          */
+        @Override
         public void onDateSet(DatePicker view, int year, int month, int day) {
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             Log.d("DEBUG DATE",view.toString());

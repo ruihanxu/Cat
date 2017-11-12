@@ -1,5 +1,7 @@
 package com.example.xuruihan.cats.model;
 
+import android.support.annotation.Nullable;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -12,6 +14,7 @@ import org.json.JSONObject;
  */
 public class User {
 
+    @Nullable
     private static UserItem userItem;
     private static DatabaseReference mDatabase;
     /**
@@ -25,7 +28,7 @@ public class User {
      * Create a user with userItem
      * @param userItem the particular user with basic info
      */
-    public User (UserItem userItem) {
+    public User (@Nullable UserItem userItem) {
         this.userItem = userItem;
     }
 
@@ -43,6 +46,7 @@ public class User {
      * @param pass the password to be set
      */
     public void setUser(String user, String pass) {
+        assert userItem != null;
         userItem.setUser(user);
         userItem.setPass(pass);
 

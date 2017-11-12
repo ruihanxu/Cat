@@ -80,6 +80,7 @@ public class HistoryActivity extends AppCompatActivity implements LoadingView{
                 listItems);
         setListAdapter(adapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // When clicked perform some action...
                 Log.i("HelloListView", "You clicked Item: " + id + " at position:" + position);
@@ -94,9 +95,6 @@ public class HistoryActivity extends AppCompatActivity implements LoadingView{
         });
 
 
-        /**
-         * get reports from database
-         */
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
 

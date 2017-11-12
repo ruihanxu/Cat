@@ -3,20 +3,13 @@ package com.example.xuruihan.cats;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.xuruihan.cats.model.Report;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import static android.R.attr.data;
-import static android.R.attr.key;
 
 /**
  * Created by Ruixuan on 10/6/17.

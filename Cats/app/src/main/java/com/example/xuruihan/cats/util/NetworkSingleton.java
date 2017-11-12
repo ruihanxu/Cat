@@ -1,9 +1,5 @@
 package com.example.xuruihan.cats.util;
 
-/**
- * Created by xuruihan on 2016/11/19.
- */
-
 import android.content.Context;
 
 import com.android.volley.Request;

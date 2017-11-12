@@ -3,11 +3,6 @@ package com.example.xuruihan.cats.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import static android.R.attr.data;
-
 /**
  * Created by Ruixuan on 10/6/17.
  */
@@ -49,6 +44,7 @@ public class Report implements Parcelable {
      * @param borough the borough of the sighting location
      * @param longitude the longitude of the sighting location
      * @param latitude the latitude of the sighting location
+     * @param address The address of the sighting location
      */
     public Report(int key, String date, String locationType, String zip, String city, String borough, String longitude,
         String latitude, String address) {
@@ -126,7 +122,7 @@ public class Report implements Parcelable {
      * Getter for the location type
      * @return the location type info
      */
-    public String getLocationType() {
+    public CharSequence getLocationType() {
         return locationType;
     }
 
@@ -142,7 +138,7 @@ public class Report implements Parcelable {
      * Getter for the zip
      * @return the zip info
      */
-    public String getZip() {
+    public CharSequence getZip() {
         return zip;
     }
 
@@ -158,7 +154,7 @@ public class Report implements Parcelable {
      * Getter for the city
      * @return the city info
      */
-    public String getCity() {
+    public CharSequence getCity() {
         return city;
     }
 
@@ -206,7 +202,7 @@ public class Report implements Parcelable {
      * Getter for the address
      * @return the address info of the sight
      */
-    public String getAddress() {
+    public CharSequence getAddress() {
         return address;
     }
 
@@ -221,6 +217,7 @@ public class Report implements Parcelable {
     /** Parcelling part
      * The constructor of the report
      *
+     * @param in
      */
 
     public Report(Parcel in){
@@ -263,10 +260,12 @@ public class Report implements Parcelable {
      * The parcelable creator to get parcelin report
      */
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        @Override
         public Report createFromParcel(Parcel in) {
             return new Report(in);
         }
 
+        @Override
         public Report[] newArray(int size) {
             return new Report[size];
         }

@@ -8,14 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.xuruihan.cats.model.Report;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -116,6 +111,7 @@ public class NewReportActivity extends AppCompatActivity {
 
     /**
      * Get user's input to new a Report object for up loading
+     * @return
      */
     @Keep
     public Report setUpReport() {

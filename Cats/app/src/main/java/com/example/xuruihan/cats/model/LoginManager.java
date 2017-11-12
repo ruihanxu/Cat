@@ -1,23 +1,13 @@
 package com.example.xuruihan.cats.model;
 
-import android.content.Context;
 import android.util.Log;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.xuruihan.cats.util.NetworkSingleton;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import static android.R.attr.value;
 import static android.content.ContentValues.TAG;
@@ -76,7 +66,8 @@ public class LoginManager {
 
     /**
      * Log in to the app after type in the correct name and password
-     *  @param password the password to log in
+     *  @param userUID
+     * @param password the password to log in
      * @param callBack the status to check if logged in
      */
     public void doLogin(String userUID, String password, final LoginCallBack callBack) {

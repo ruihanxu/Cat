@@ -1,10 +1,7 @@
 package com.example.xuruihan.cats;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,17 +15,13 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.xuruihan.cats.model.SignupManager;
-import com.example.xuruihan.cats.model.User;
-import com.example.xuruihan.cats.model.UserItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 
 import static android.content.ContentValues.TAG;
-import static com.example.xuruihan.cats.R.id.user;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +32,7 @@ import static com.example.xuruihan.cats.R.id.user;
 public class SignUpFragment extends Fragment {
 
 
+    @Nullable
     private OnSignupFragmentInteractionListener signupListener;
 
     private Button cancelButton;
@@ -111,6 +105,7 @@ public class SignUpFragment extends Fragment {
         passwordText = (EditText) getActivity().findViewById(R.id.passwordeditText);
         radioGroup = (RadioGroup) getActivity().findViewById(R.id.radioGroup);
         cancelButton.setOnClickListener((View v) -> {
+            assert signupListener != null;
             signupListener.cancelSignup();
         });
 
@@ -132,14 +127,17 @@ public class SignUpFragment extends Fragment {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 registerSuccessfully = task.isSuccessful();
-                                if (task.isSuccessful()) {
+                                if (task.isSuccessful() && user != null) {
                                     SignupManager.getInstance().doSignup(user.getUid(), password, isAdmin, getActivity());
                                     Toast.makeText(getActivity(), "Thanks for registering", Toast.LENGTH_SHORT).show();
+                                    assert signupListener != null;
                                     signupListener.signupToMainPage();
 //                                    mDatabase.child("Users").child(username).child("user type").setValue((isAdmin) ? 1 : 0);
                                 } else {
-                                    Log.d("FirebaseAuth", "onComplete" + task.getException().getMessage());
-                                    Toast.makeText(getActivity(), "Registration failed.", Toast.LENGTH_SHORT).show();
+                                    if (task.getException() != null) {
+                                        Log.d("FirebaseAuth", "onComplete" + task.getException().getMessage());
+                                        Toast.makeText(getActivity(), "Registration failed.", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
                         });

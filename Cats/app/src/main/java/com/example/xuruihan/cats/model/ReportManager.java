@@ -14,6 +14,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,7 +28,7 @@ public class ReportManager {
     private static ReportManager ourInstance = new ReportManager();
     private final String TAG = "ReportManager";
 
-    private ReportManager() {}
+    public ReportManager() {}
 
     public static ReportManager getInstance() {
         return ourInstance;
@@ -40,7 +41,7 @@ public class ReportManager {
      * @param callback the loading view
      * @throws IllegalArgumentException if returnArrayList is null or amount is smaller than zero
      */
-    public void getLatestReports(ArrayList<Report> returnArrayList, int amount, LoadingView callback) {
+    public void getLatestReports(List<Report> returnArrayList, int amount, LoadingView callback) {
         if (returnArrayList == null || amount < 0) {
             throw new IllegalArgumentException("enter valid args");
         }
@@ -84,7 +85,7 @@ public class ReportManager {
      * @param endDate the end date
      * @param callback the loading view
      */
-    public void getReportsByDate(ArrayList<Report> returnArrayList, String startDate, String endDate, LoadingView callback) {
+    public void getReportsByDate(List<Report> returnArrayList, String startDate, String endDate, LoadingView callback) {
         query = mDatabase.child("Entries").orderByChild("Created Date").startAt(startDate).endAt(endDate);
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -125,7 +126,7 @@ public class ReportManager {
         callback.setUpLoadingView();
     }
 
-    public Map<String, String> assignGraphData(ArrayList<Report> returnArrayList, LoadingView callback) {
+    public Map<String, String> assignGraphData(Iterable<Report> returnArrayList, LoadingView callback) {
         Map<String, String> returnMap = new HashMap<>();
         for (Report report: returnArrayList) {
             String key = report.getDate().substring(0, 4);

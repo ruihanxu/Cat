@@ -13,6 +13,7 @@ public interface LoadingView {
 
     /**
      * Setter for download view
+     * @param object
      */
     public void displayResult(Object object);
 }

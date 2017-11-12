@@ -8,9 +8,10 @@ import com.example.xuruihan.cats.model.ReportManager;
 import com.example.xuruihan.cats.model.Report;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RuihanJunitTest {
-    private ArrayList<Report> expectedList;
+    private List<Report> expectedList;
     private ArrayList<Report> actualList;
     private static final int TIMEOUT = 200;
 

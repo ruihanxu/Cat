@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.icu.util.Calendar;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -144,6 +145,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current date as the default date in the picker
@@ -164,6 +166,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
          * @param month the month of the graph range
          * @param day the day of the graph range
          */
+        @Override
         public void onDateSet(DatePicker view, int year, int month, int day) {
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             Log.d("DEBUG DATE",view.toString());
@@ -190,7 +193,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void displayResult(Object object) {
-        List<Report> reportList = (List<Report>) object;
+        Iterable<Report> reportList = (List<Report>) object;
         mMap.clear();
         for (Report report : reportList) {
             if (!report.getLongitude().equals("") && !report.getLatitude().equals("")) {

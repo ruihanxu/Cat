@@ -4,8 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,7 +29,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 import static android.content.ContentValues.TAG;
 import static com.example.xuruihan.cats.R.id.login;
@@ -195,10 +192,12 @@ public class LoginFragment extends Fragment implements LoginManager.LoginCallBac
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             FirebaseUser currentUser = mAuth.getCurrentUser();
+                            assert currentUser != null;
                             userUID = currentUser.getUid();
                             LoginManager.getInstance().doLogin(userUID, password, callback);
                             Toast.makeText(getActivity(), "Log in successful.",
                                     Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 });

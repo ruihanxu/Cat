@@ -4,7 +4,6 @@ import com.example.xuruihan.cats.MapActivity;
 import com.example.xuruihan.cats.model.Report;
 import com.example.xuruihan.cats.model.ReportManager;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
