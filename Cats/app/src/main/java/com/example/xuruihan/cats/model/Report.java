@@ -3,6 +3,12 @@ package com.example.xuruihan.cats.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.xuruihan.cats.GraphActivity;
+import com.example.xuruihan.cats.LoadingView;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Ruixuan on 10/6/17.
  */
@@ -270,4 +276,20 @@ public class Report implements Parcelable {
             return new Report[size];
         }
     };
+
+    //Help ReportManager to Test this method
+    public Map<String, String> assignGraphData(Iterable<Report> returnArrayList, LoadingView callback) {
+        Map<String, String> returnMap = new HashMap<>();
+        if (returnArrayList != null) {
+            for (Report report : returnArrayList) {
+                String key = report.getDate().substring(0, 4);
+                if (returnMap.get(key) == null) {
+                    returnMap.put(key, "1");
+                } else {
+                    returnMap.put(key, String.valueOf(Integer.parseInt(returnMap.get(key)) + 1));
+                }
+            }
+        }
+        return returnMap;
+    }
 }

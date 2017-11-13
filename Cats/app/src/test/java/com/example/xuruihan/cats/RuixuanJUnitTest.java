@@ -4,26 +4,29 @@ import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
 
-import com.example.xuruihan.cats.model.ReportManager;
 import com.example.xuruihan.cats.model.Report;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Arrays;
+
+
 
 /**
  * Created by Ruixuan on 11/6/17.
  */
 
 public class RuixuanJUnitTest {
+
     private Map<String, String> expectedMap;
     private Map<String, String> actualMap;
     private Map<String, String> nullMap = new HashMap<>();
     private LoadingView callback;
     private static final int TIMEOUT = 200;
     private List<Report> reports;
-    private  ReportManager manager;
+    private Report report;
     private Iterable<Report> nullReports;
     private Report report_1 = new Report(001, "2012/12/23/ 12:00:00 AM",
             null, null, null, null, null, null, null);
@@ -41,7 +44,7 @@ public class RuixuanJUnitTest {
 
     @Before
     public void setup() {
-        manager = new ReportManager();
+        report = new Report();
         expectedMap = new HashMap<>();
         reports = new ArrayList<>();
         reports.add(report_1);
@@ -61,40 +64,43 @@ public class RuixuanJUnitTest {
 
     @Test(timeout = TIMEOUT)
     public void testNullMap() {
-        actualMap = manager.assignGraphData(nullReports, callback);
+        actualMap = report.assignGraphData(nullReports, callback);
         assertEquals(nullMap, actualMap);
     }
 
     @Test(timeout = TIMEOUT)
     public void testHashMap() {
-        actualMap = manager.assignGraphData(reports, callback);
+        actualMap = report.assignGraphData(reports, callback);
         assertEquals(expectedMap, actualMap);
     }
 
     @Test(timeout = TIMEOUT)
     public void testSingleReport() {
-        actualMap = manager.assignGraphData(reports, callback);
-        assertEquals(1, actualMap.get("2017"));
+        actualMap = report.assignGraphData(reports, callback);
+        assertEquals("1", actualMap.get("2017"));
     }
 
     @Test(timeout = TIMEOUT)
     public void testMultiReport() {
-        actualMap = manager.assignGraphData(reports, callback);
-        assertEquals(3, actualMap.get("2012"));
+        actualMap = report.assignGraphData(reports, callback);
+        assertEquals("3", actualMap.get("2012"));
     }
 
     @Test(timeout = TIMEOUT)
     public void testKeySet() {
-        actualMap = manager.assignGraphData(reports, callback);
-        String[] expectedYear = {"2012", "2015", "2017"};
-        assertEquals(expectedYear, actualMap.keySet());
+        actualMap = report.assignGraphData(reports, callback);
+        String[] expectedYear = new String[3];
+        expectedYear[0] = "2017";
+        expectedYear[1] = "2015";
+        expectedYear[2] = "2012";
+        assertEquals(Arrays.toString(expectedYear), actualMap.keySet().toString());
     }
 
     @Test(timeout = TIMEOUT)
     public void testValues() {
-        actualMap = manager.assignGraphData(reports, callback);
-        String[] expectedReportAmount = {"3", "2", "1"};
-        assertEquals(expectedReportAmount, actualMap.values());
+        actualMap = report.assignGraphData(reports, callback);
+        String[] expectedReportAmount = {"1", "2", "3"};
+        assertEquals(Arrays.toString(expectedReportAmount), actualMap.values().toString());
     }
 
 

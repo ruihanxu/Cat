@@ -28,7 +28,7 @@ public class ReportManager {
     private static ReportManager ourInstance = new ReportManager();
     private final String TAG = "ReportManager";
 
-    public ReportManager() {}
+//    public ReportManager() {}
 
     public static ReportManager getInstance() {
         return ourInstance;
