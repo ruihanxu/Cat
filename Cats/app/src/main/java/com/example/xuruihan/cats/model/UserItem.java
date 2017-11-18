@@ -28,7 +28,12 @@ public class UserItem {
      * @param user the user to be set
      */
     public void setUser(String user) {
-        userID = user;
+        if (user == null) {
+            throw new IllegalArgumentException("user cannot be null");
+        }
+        if (!user.equals("")) {
+            userID = user;
+        }
     }
 
     /**
@@ -51,4 +56,18 @@ public class UserItem {
 
     }
     */
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof  UserItem) {
+            UserItem userItem = (UserItem) object;
+            if (userItem.userID.equals(this.userID) && userItem.password.equals(this.password) && userItem.isAdmin == this.isAdmin) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }
