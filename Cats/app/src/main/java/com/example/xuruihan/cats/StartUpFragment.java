@@ -18,8 +18,6 @@ public class StartUpFragment extends Fragment {
 
     @Nullable
     private OnStartUpFragmentInteractionListener startUpListener;
-    private Button loginButton;
-    private Button signUpButton;
 
     /**
      * Empty public constructor of Welcome page
@@ -39,8 +37,8 @@ public class StartUpFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        loginButton = (Button) getActivity().findViewById(R.id.login_button);
-        signUpButton = (Button) getActivity().findViewById(R.id.sign_up_button);
+        Button loginButton = (Button) getActivity().findViewById(R.id.login_button);
+        Button signUpButton = (Button) getActivity().findViewById(R.id.sign_up_button);
 
         loginButton.setOnClickListener((View v) -> {
             assert startUpListener != null;

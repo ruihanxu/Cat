@@ -2,7 +2,6 @@ package com.example.xuruihan.cats;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -15,9 +14,6 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.xuruihan.cats.model.SignupManager;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -35,8 +31,6 @@ public class SignUpFragment extends Fragment {
     @Nullable
     private OnSignupFragmentInteractionListener signupListener;
 
-    private Button cancelButton;
-    private Button registerButton;
     private EditText userText;
     private EditText passwordText;
     private RadioGroup radioGroup;
@@ -54,19 +48,16 @@ public class SignUpFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-                // ...
+        mAuthListener = firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user != null) {
+                // User is signed in
+                Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+            } else {
+                // User is signed out
+                Log.d(TAG, "onAuthStateChanged:signed_out");
             }
+            // ...
         };
     }
 
@@ -99,8 +90,8 @@ public class SignUpFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        cancelButton = (Button) getActivity().findViewById(R.id.cancel_signup_button);
-        registerButton = (Button) getActivity().findViewById(R.id.user_sign_up_button);
+        Button cancelButton = (Button) getActivity().findViewById(R.id.cancel_signup_button);
+        Button registerButton = (Button) getActivity().findViewById(R.id.user_sign_up_button);
         userText = (EditText) getActivity().findViewById(R.id.userTextView);
         passwordText = (EditText) getActivity().findViewById(R.id.passwordeditText);
         radioGroup = (RadioGroup) getActivity().findViewById(R.id.radioGroup);
@@ -122,22 +113,19 @@ public class SignUpFragment extends Fragment {
                 Log.d(TAG, username + "   " + password + "    " + isAdmin);
                 Log.d(TAG, "ha");
                 mAuth.createUserWithEmailAndPassword(username, password)
-                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                registerSuccessfully = task.isSuccessful();
-                                if (task.isSuccessful() && user != null) {
-                                    SignupManager.getInstance().doSignup(user.getUid(), password, isAdmin, getActivity());
-                                    Toast.makeText(getActivity(), "Thanks for registering", Toast.LENGTH_SHORT).show();
-                                    assert signupListener != null;
-                                    signupListener.signupToMainPage();
+                        .addOnCompleteListener(getActivity(), task -> {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            registerSuccessfully = task.isSuccessful();
+                            if (task.isSuccessful() && user != null) {
+                                SignupManager.getInstance().doSignup(user.getUid(), password, isAdmin, getActivity());
+                                Toast.makeText(getActivity(), "Thanks for registering", Toast.LENGTH_SHORT).show();
+                                assert signupListener != null;
+                                signupListener.signupToMainPage();
 //                                    mDatabase.child("Users").child(username).child("user type").setValue((isAdmin) ? 1 : 0);
-                                } else {
-                                    if (task.getException() != null) {
-                                        Log.d("FirebaseAuth", "onComplete" + task.getException().getMessage());
-                                        Toast.makeText(getActivity(), "Registration failed.", Toast.LENGTH_SHORT).show();
-                                    }
+                            } else {
+                                if (task.getException() != null) {
+                                    Log.d("FirebaseAuth", "onComplete" + task.getException().getMessage());
+                                    Toast.makeText(getActivity(), "Registration failed.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

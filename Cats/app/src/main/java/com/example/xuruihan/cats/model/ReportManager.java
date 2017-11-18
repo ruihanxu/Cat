@@ -21,9 +21,10 @@ import java.util.Map;
  * Created by Ruixuan on 10/7/17.
  */
 
+@SuppressWarnings("ALL")
 public class ReportManager {
 
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private Query query;
     private static ReportManager ourInstance = new ReportManager();
     private final String TAG = "ReportManager";

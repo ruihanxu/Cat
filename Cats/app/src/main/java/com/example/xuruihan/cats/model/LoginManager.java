@@ -15,6 +15,7 @@ import static android.content.ContentValues.TAG;
 /**
  * Created by xuruihan on 2017/09/30.
  */
+@SuppressWarnings("ALL")
 public class LoginManager {
     private static final String LOGIN_URL = "";
     DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference();

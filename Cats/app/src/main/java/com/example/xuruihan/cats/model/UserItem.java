@@ -5,6 +5,7 @@ package com.example.xuruihan.cats.model;
  * Created by xuruihan on 2017/9/30.
  */
 
+@SuppressWarnings("ALL")
 public class UserItem {
     String userID;
     String password;

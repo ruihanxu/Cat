@@ -1,5 +1,6 @@
 package com.example.xuruihan.cats;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -39,12 +40,7 @@ import java.util.List;
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, LoadingView{//}, com.example.xuruihan.cats.LoadingView {
 
 
-    private Button logoutButton;
-    private Button reportButton;
-    private Button graphButton;
-    private FloatingActionButton newReport;
     private static final String TAG = "MapActivity";
-    private DatabaseReference mDatabase;
     private View stubView;
     private ArrayList<Report> reports;
 
@@ -73,8 +69,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
 
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mDatabase.child("IDcounter").addValueEventListener(new ValueEventListener() {
             @Override
@@ -88,25 +83,25 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         });
 
 
-        logoutButton = (Button) findViewById(R.id.logout_button);
+        Button logoutButton = (Button) findViewById(R.id.logout_button);
         logoutButton.setOnClickListener((View v) -> {
             Intent intent = new Intent(this, StartUpActivity.class);
             startActivity(intent);
         });
 
-        reportButton = (Button) findViewById(R.id.report_button);
+        Button reportButton = (Button) findViewById(R.id.report_button);
         reportButton.setOnClickListener((View v1) -> {
             Intent intent = new Intent(this, HistoryActivity.class);
             startActivity(intent);
         });
 
-        graphButton = (Button) findViewById(R.id.graph_button);
+        Button graphButton = (Button) findViewById(R.id.graph_button);
         graphButton.setOnClickListener((View v1) -> {
             Intent intent = new Intent(this, GraphActivity.class);
             startActivity(intent);
         });
 
-        newReport = (FloatingActionButton) findViewById(R.id.new_button);
+        FloatingActionButton newReport = (FloatingActionButton) findViewById(R.id.new_button);
         newReport.setOnClickListener((View v2) -> {
             Intent intent = new Intent(this, NewReportActivity.class);
             startActivity(intent);
@@ -175,11 +170,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             String monthString = month < 10 ? "0" + month : "" + month;
             String dayString = day < 10 ? "0" + day : "" + day;
             if (startDateSelected) {
-                startDate.setText(month + "/" + day + "/" + year + " 12:00:00 AM");
                 startDateString = year + "/" + monthString + "/" + dayString + " 12:00:00 AM";
+                startDate.setText(startDateString);
             } else {
-                endDate.setText(month + "/" + day + "/" + year + " 12:00:00 AM" );
                 endDateString = year + "/" + monthString + "/" + dayString + " 12:00:00 AM";
+                endDate.setText(endDateString);
             }
 
             if (startDateSelection && endDateSelection) {
@@ -193,7 +188,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void displayResult(Object object) {
-        Iterable<Report> reportList = (List<Report>) object;
+        @SuppressWarnings("unchecked") Iterable<Report> reportList = (List<Report>) object;
         mMap.clear();
         for (Report report : reportList) {
             if (!report.getLongitude().equals("") && !report.getLatitude().equals("")) {
@@ -218,12 +213,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         mMap.setLatLngBoundsForCameraTarget(new LatLngBounds(new LatLng(40.738359, -73.998692), new LatLng(40.847450, -73.817654)));
         // Setting a click event handler for the map
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        mMap.setOnMapClickListener(latLng -> {
 
-            @Override
-            public void onMapClick(LatLng latLng) {
-
-            }
         });
 
 
@@ -235,6 +226,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         private final View myContentsView;
 
+        @SuppressLint("InflateParams")
         CustomInfoWindowAdapter(){
             myContentsView = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
         }

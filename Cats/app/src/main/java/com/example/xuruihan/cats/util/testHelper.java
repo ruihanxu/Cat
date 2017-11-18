@@ -10,6 +10,7 @@ import java.util.ArrayList;
  * Created by xuruihan on 2017/11/4.
  */
 
+@SuppressWarnings("ALL")
 public class testHelper {
     public ArrayList<Report> setLatestReports(int amount) {
         ArrayList<Report> list = new ArrayList<>();

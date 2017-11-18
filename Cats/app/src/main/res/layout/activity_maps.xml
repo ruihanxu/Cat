@@ -16,7 +16,8 @@
             android:translationZ="15dp"
             tools:layout_constraintBottom_creator="1"
             tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintTop_creator="1">
+            tools:layout_constraintTop_creator="1"
+            android:focusable="true">
 
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/new_button"
@@ -25,7 +26,8 @@
                     android:layout_marginBottom="72dp"
                     android:clickable="true"
                     tools:layout_constraintLeft_creator="1"
-                    tools:layout_constraintRight_creator="1" />
+                    tools:layout_constraintRight_creator="1"
+                    android:focusable="true" />
 
                 <ImageView
                     android:id="@+id/cbPicView"
@@ -38,7 +40,9 @@
                     tools:layout_constraintBottom_creator="1"
                     tools:layout_constraintLeft_creator="1"
                     tools:layout_constraintRight_creator="1"
-                    tools:layout_constraintTop_creator="1" />
+                    tools:layout_constraintTop_creator="1"
+                    android:contentDescription="map"
+                    android:focusable="true" />
 
                 <Button
                     android:id="@+id/report_button"
@@ -47,7 +51,8 @@
                     android:layout_marginTop="32dp"
                     android:text="Report"
                     android:clickable="true"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:focusable="true" />
 
                 <Button
                     android:id="@+id/logout_button"
@@ -56,7 +61,8 @@
                     android:layout_marginTop="32dp"
                     android:clickable="true"
                     android:text="Logout"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:focusable="true" />
         </android.support.constraint.ConstraintLayout>
 
 </fragment>

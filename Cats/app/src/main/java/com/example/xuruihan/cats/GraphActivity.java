@@ -30,6 +30,7 @@ import java.util.Map;
  * Created by Ruixuan on 10/29/17.
  */
 
+@SuppressWarnings("ALL")
 public class GraphActivity extends AppCompatActivity implements LoadingView{
 
     private static final String TAG = "GraphActivity";
@@ -115,11 +116,13 @@ public class GraphActivity extends AppCompatActivity implements LoadingView{
             String monthString = month < 10 ? "0" + month : "" + month;
             String dayString = day < 10 ? "0" + day : "" + day;
             if (startDateSelected) {
-                startDate.setText(year + "/" + month + "/" + day + " 12:00:00 AM");
                 startDateString = year + "/" + monthString + "/" + dayString + " 12:00:00 AM";
+                startDate.setText(startDateString);
+
             } else {
-                endDate.setText(year + "/" + month + "/" + day + " 12:00:00 AM" );
                 endDateString = year + "/" + monthString + "/" + dayString + " 12:00:00 AM";
+                endDate.setText(endDateString);
+
             }
 
             if (startDateSelection && endDateSelection) {

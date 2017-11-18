@@ -24,6 +24,7 @@ import static com.example.xuruihan.cats.MapActivity.currentID;
  * Created by xuruihan on 2017/10/13.
  */
 
+@SuppressWarnings("ALL")
 public class NewReportActivity extends AppCompatActivity {
     private Button uploadButton;
     private Button cancelButton;

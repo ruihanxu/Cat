@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * Created by xuruihan on 2017/9/30.
  */
 
+@SuppressWarnings("ALL")
 public class SignupManager {
 
     private static SignupManager ourInstance = new SignupManager();

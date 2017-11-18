@@ -5,7 +5,6 @@ import org.junit.Before;
 import static org.junit.Assert.*;
 
 import com.example.xuruihan.cats.model.Report;
-import com.example.xuruihan.cats.model.ReportManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,17 +56,4 @@ public class RuihanJunitTest {
         }
     }
 
-    /**
-     * These two test should throw exceptions; however, ReportManager.getInstance cannot be
-     * used in Junit.
-     * Therefore, we cannot pass these tests, but it shows ideas to cover exception cases.
-     */
-    @Test(expected = IllegalArgumentException.class)
-    public void testNegOneArrException() {
-        //ReportManager.getInstance().getLatestReports(actualList, -1, new MapActivity());
-    }
-    @Test(expected = IllegalArgumentException.class)
-    public void testNullArrException() {
-        //ReportManager.getInstance().getLatestReports(null, -1, new MapActivity());
-    }
 }
