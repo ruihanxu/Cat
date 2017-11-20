@@ -15,33 +15,60 @@ import static org.junit.Assert.*;
  */
 
 public class JingkaiJUnitTest {
-    private ArrayList<Report> expectedList;
-    private ArrayList<Report> actualList;
+    private Report report;
+    private String actual_date;
+    private String expected_date;
     private static final int TIMEOUT = 200;
 
     @Before
     public void setup() {
-        actualList = new ArrayList<>();
-        expectedList = new ArrayList<>();
+        report = new Report();
     }
 
+    /**
+     * test for uninitialized a null report
+     */
     @Test(timeout = TIMEOUT)
-    public void testGetOneDateReports() {
-        ReportManager.getInstance().getReportsByDate(actualList, "2015/10/01", "2015/10/02", null);
-        assertEquals(82, actualList.size());
+    public void testNullReport() {
+        assertNull(report.getDate());
+        assertNull(report.getAddress());
+        assertNull(report.getBorough());
+        assertNull(report.getCity());
+        assertEquals(0, report.getKey());
     }
 
-    @Test(timeout = 60000)
-    public void testGetOneYearReports() throws InterruptedException {
-        ReportManager.getInstance().getReportsByDate(actualList, "2011", "2012", null);
-        Thread.sleep(59900);
-        assertEquals(10454, actualList.size());
+    /**
+     * test for setting key for reports.
+     */
+    @Test(timeout = TIMEOUT)
+    public void testSetKey() {
+        report.setKey(1234);
+        assertEquals(1234, report.getKey());
     }
 
-    @Test(timeout = 6000)
-    public void testGetOneMonthReports() throws InterruptedException {
-        ReportManager.getInstance().getReportsByDate(actualList, "2011/05", "2011/06", null);
-        Thread.sleep(5900);
-        assertEquals(1126, actualList.size());
+    /**
+     * test for setting address for reports.
+     */
+    @Test(timeout = TIMEOUT)
+    public void testSetAddress() {
+        report.setAddress("555 8th St NW");
+        assertEquals("555 8th St NW", report.getAddress());
+    }
+
+    /**
+     * test for setting city for reports.
+     */
+    @Test(timeout = TIMEOUT)
+    public void testSetCity() {
+        report.setCity("Atlanta");
+        assertEquals("Atlanta", report.getCity());
+    }
+
+    /**
+     * test for setting city for reports.
+     */
+    @Test(expected = RuntimeException.class)
+    public void testSetException() {
+        report.setKey(1/0);
     }
 }
