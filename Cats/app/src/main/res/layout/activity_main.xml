@@ -26,7 +26,9 @@
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintVertical_bias="0.1"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:ignore="TextFields"
+        android:focusable="true" />
 
 
     <EditText
@@ -38,7 +40,9 @@
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintVertical_bias="0.1"
         app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextFields"
+        android:focusable="true" />
 
 
     <android.support.design.widget.FloatingActionButton
@@ -54,7 +58,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@android:drawable/ic_input_add"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
+        tools:layout_constraintRight_creator="1"
+        android:focusable="true" />
 
 
     <Button
@@ -68,7 +73,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.784"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:focusable="true" />
 
     <Button
         android:id="@+id/graph_button"
@@ -80,7 +86,8 @@
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:focusable="true" />
 
     <Button
         android:id="@+id/logout_button"
@@ -93,7 +100,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.22"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:focusable="true" />
 
 
 

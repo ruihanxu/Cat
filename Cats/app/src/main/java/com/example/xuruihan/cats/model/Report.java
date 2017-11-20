@@ -3,7 +3,6 @@ package com.example.xuruihan.cats.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.xuruihan.cats.GraphActivity;
 import com.example.xuruihan.cats.LoadingView;
 
 import java.util.HashMap;
@@ -13,6 +12,7 @@ import java.util.Map;
  * Created by Ruixuan on 10/6/17.
  */
 
+@SuppressWarnings("ALL")
 public class Report implements Parcelable {
 
     private int key;
@@ -120,7 +120,10 @@ public class Report implements Parcelable {
      * Setter for the date
      * @param date the date to be set
      */
-    public void setDate(String date) {
+    public void setDate(String date) throws IllegalArgumentException {
+        if (date == "") {
+            throw new IllegalArgumentException("enter valid input");
+        }
         this.date = date;
     }
 

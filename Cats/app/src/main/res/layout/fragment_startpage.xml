@@ -1,3 +1,4 @@
+<!--suppress AndroidDomInspection -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -48,7 +49,8 @@
                 android:layout_height="900px"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="2.94"
-                android:src="@drawable/tomjerry" />
+                android:src="@drawable/tomjerry"
+                android:contentDescription="start image" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -81,7 +83,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/hText0"
+                android:id="@+id/hText1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"

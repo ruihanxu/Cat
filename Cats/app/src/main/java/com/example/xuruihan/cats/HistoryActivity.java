@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.HeaderViewListAdapter;
 import android.widget.ListAdapter;
@@ -27,6 +25,7 @@ import java.util.List;
 
 
 
+@SuppressWarnings("ALL")
 public class HistoryActivity extends AppCompatActivity implements LoadingView{
 
     private DatabaseReference mDatabase;
@@ -48,7 +47,7 @@ public class HistoryActivity extends AppCompatActivity implements LoadingView{
 
     ArrayAdapter<String> adapter;
 
-    ArrayList<String> listItems = new ArrayList<String>();
+    ArrayList<String> listItems = new ArrayList<>();
 
     private ListView mListView;
     private Report newReport;
@@ -75,23 +74,20 @@ public class HistoryActivity extends AppCompatActivity implements LoadingView{
             listItems.add(""+ newReport.getKey());
         }
 
-        adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 listItems);
         setListAdapter(adapter);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // When clicked perform some action...
-                Log.i("HelloListView", "You clicked Item: " + id + " at position:" + position);
-                // Then you start a new Activity via Intent
-                Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
-                intent.putExtra("position", position);
-                // Or / And
-                intent.putExtra("id", id);
-                intent.putExtra("Report", reportArray.get(position));
-                startActivity(intent);
-            }
+        mListView.setOnItemClickListener((parent, view, position, id) -> {
+            // When clicked perform some action...
+            Log.i("HelloListView", "You clicked Item: " + id + " at position:" + position);
+            // Then you start a new Activity via Intent
+            Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
+            intent.putExtra("position", position);
+            // Or / And
+            intent.putExtra("id", id);
+            intent.putExtra("Report", reportArray.get(position));
+            startActivity(intent);
         });
 
 

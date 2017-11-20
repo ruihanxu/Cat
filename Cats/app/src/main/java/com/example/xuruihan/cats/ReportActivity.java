@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
  * Created by Ruixuan on 10/6/17.
  */
 
+@SuppressWarnings("ALL")
 public class ReportActivity extends AppCompatActivity {
     private Button BackToMap;
     private static final String TAG = "ReportActivity";
@@ -44,7 +45,8 @@ public class ReportActivity extends AppCompatActivity {
             TextView address = (TextView) findViewById(R.id.textViewAddress);
             TextView city = (TextView) findViewById(R.id.textViewCity);
             TextView locationType = (TextView) findViewById(R.id.textViewLocationType);
-            key.setText(Integer.toString(report.getKey()));
+            String text = Integer.toString(report.getKey());
+            key.setText(text);
             date.setText(report.getDate());
             zip.setText(report.getZip());
             address.setText(report.getAddress());

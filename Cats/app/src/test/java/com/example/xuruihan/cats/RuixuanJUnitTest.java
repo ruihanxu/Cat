@@ -18,6 +18,7 @@ import java.util.Arrays;
  * Created by Ruixuan on 11/6/17.
  */
 
+@SuppressWarnings("ALL")
 public class RuixuanJUnitTest {
 
     private Map<String, String> expectedMap;

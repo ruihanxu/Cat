@@ -4,6 +4,7 @@ package com.example.xuruihan.cats.model;
  * Created by xuruihan on 2017/9/30.
  */
 
+@SuppressWarnings("ALL")
 public class Admin extends User {
 
     /**

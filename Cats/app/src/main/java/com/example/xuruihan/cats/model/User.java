@@ -12,6 +12,7 @@ import org.json.JSONObject;
 /**
  * Created by League of Users on 2017/10/01.
  */
+@SuppressWarnings("ALL")
 public class User {
 
     @Nullable
