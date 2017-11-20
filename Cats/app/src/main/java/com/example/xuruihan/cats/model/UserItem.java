@@ -41,7 +41,13 @@ public class UserItem {
      * @param pass the password to be set
      */
     public void setPass(String pass) {
-        password = pass;
+        //password = pass;
+        if (pass == null) {
+            throw new IllegalArgumentException("password cannot be null");
+        }
+        if (!pass.equals("")) {
+            password = pass;
+        }
     }
     public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
@@ -61,7 +67,7 @@ public class UserItem {
     public boolean equals(Object object) {
         if (object instanceof  UserItem) {
             UserItem userItem = (UserItem) object;
-            if (userItem.userID.equals(this.userID) && userItem.password.equals(this.password) && userItem.isAdmin == this.isAdmin) {
+            if (userItem.userID.equals(this.userID) && userItem.password.equals(this.password)) {
                 return true;
             } else {
                 return false;

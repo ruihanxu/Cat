@@ -24,20 +24,24 @@ public class MingyuanJUnitTest {
     @Test(timeout = TIMEOUT)
     public void testSetUser() {
         UserItem expectedUserItem = new UserItem("555555555", "password", true);
-        User expectedUser = new User(expectedUserItem);
         userItem.setUser("555555555");
-        user.setUser("555555555", "password");
         assertEquals(expectedUserItem, userItem);
+
+        userItem = new UserItem("555555555", "password", true);
+        User expectedUser = new User(userItem);
+        user.setUser("555555555", "password");
         assertEquals(expectedUser, user);
     }
 
     @Test(timeout = TIMEOUT)
     public void testSetPassword() {
-        UserItem expectedUserItem = new UserItem("UserID", "asdfasdf", true);
-        User expectedUser = new User(expectedUserItem);
-        userItem.setPass("asdfasdf");
-        user.setUser("UserID", "asdfasdf");
+        UserItem expectedUserItem = new UserItem("50000000", "pass", true);
+        userItem.setPass("pass");
         assertEquals(expectedUserItem, userItem);
+
+        userItem = new UserItem("555555555", "password", true);
+        User expectedUser = new User(userItem);
+        user.setUser("555555555", "password");
         assertEquals(expectedUser, user);
     }
 

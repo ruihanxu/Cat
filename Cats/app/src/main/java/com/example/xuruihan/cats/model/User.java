@@ -73,4 +73,19 @@ public class User {
         return new User(userItem);
 
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof  User) {
+            User user = (User) object;
+            //UserItem userItem = (UserItem) object;
+            if (user.userItem.equals(this.userItem)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }
