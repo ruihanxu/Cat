@@ -120,7 +120,10 @@ public class Report implements Parcelable {
      * Setter for the date
      * @param date the date to be set
      */
-    public void setDate(String date) {
+    public void setDate(String date) throws IllegalArgumentException {
+        if (date == "") {
+            throw new IllegalArgumentException("enter valid input");
+        }
         this.date = date;
     }
 
