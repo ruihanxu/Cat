@@ -5,9 +5,6 @@ import org.junit.Before;
 import static org.junit.Assert.*;
 
 import com.example.xuruihan.cats.model.Report;
-import com.example.xuruihan.cats.model.ReportManager;
-
-import java.util.ArrayList;
 
 public class RuihanJunitTest {
     private Report report;
