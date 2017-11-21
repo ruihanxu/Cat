@@ -16,11 +16,18 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDBUPoUrWvYCcH69CGrKvzKy7ZrrbRRBts" />
-        <activity android:name=".MapActivity"></activity>
-        <activity android:name=".ReportActivity"></activity>
-        <activity android:name=".HistoryActivity"></activity>
-        <activity android:name=".NewReportActivity"></activity>
-        <activity android:name=".GraphActivity"></activity>
+        <activity android:name=".MapActivity"
+            android:label="@string/Map">
+        </activity>
+
+        <activity android:name=".ReportActivity"
+            android:label="@string/Report"></activity>
+        <activity android:name=".HistoryActivity"
+            android:label="Old reports"></activity>
+        <activity android:name=".NewReportActivity"
+            android:label="Upload Report"></activity>
+        <activity android:name=".GraphActivity"
+            android:label="Statistical Graph"></activity>
         <activity
             android:name=".StartUpActivity"
             android:label="@string/title_activity_start_up"

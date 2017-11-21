@@ -39,6 +39,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:text="Welcome Rat Hunters!"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
                 android:textSize="30dp"
                 android:textStyle="bold" />
 
@@ -77,9 +79,11 @@
 
             <Button
                 android:id="@+id/user_sign_in_button"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:backgroundTint="@color/colorAccent"
                 android:text="Login"
                 android:textStyle="bold" />
             <Button
